@@ -24,3 +24,20 @@ function togglePass(inputId, iconId) {
         icon.classList.add("fa-eye-slash");
     }
 }
+const darkModeToggle = document.getElementById('darkModeToggle');
+
+
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+}
+
+
+if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', () => {
+        
+        document.body.classList.toggle('dark-mode');
+
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+}

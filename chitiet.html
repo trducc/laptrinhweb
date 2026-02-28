@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!--phần não của web-->
+    <meta charset="UTF-8"><!--viết tiếng việt k lỗi-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--cấu hình giúp web hiển thị đẹp-->
+    <title>TroHD</title><!--tên web hiển thị trên trình duyệt-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"><!--liên kết bootstrap-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!--thư viện lấy icon-->
+    <link rel="stylesheet" href="css/style.css"><!--liên kết file css-->
+</head>                                                                                                                 
+<body><!--bắt đaauf phần thân, nơi người xem nhìn thấy-->
+
+    <nav class="navbar navbar-expand bg-white shadow-sm sticky-top"><!--menu trắng, dính chặt lên đỉnh màn hình-->
+        <div class="container"><!--khung ép nội dung vào giữa màn hình-->
+            <a class="navbar-brand" href="index.html"><!--khu vực chứa logo, cài link bấm vào tự động quay về trang chủ-->
+                <img src="images/logo.png" alt="TroHD" height="40"><!--chèn ảnh logo và ép chiều cao-->
+            </a><!--đóng nút logo-->
+            
+            <div class="navbar-collapse"><!--Gom toàn bộ menu và nút bấm thành 1 khối-->
+                <ul class="navbar-nav mx-auto fw-bold gap-3 align-items-center"><!--menu đẩy vào chính giữa, chữ đậm, thẳng hàng-->
+                    <li class="nav-item"><a class="nav-link active text-primary" href="index.html">Trang chủ</a></li><!--mục trang chủ đang xem được tô màu xanh-->
+                    <li class="nav-item"><a class="nav-link" href="danhsach.html">Danh sách phòng</a></li><!--link bấm sang trang danhsachphong-->
+                    <li class="nav-item"><a class="nav-link" href="dangtin.html">Đăng tin</a></li><!--link bấm sang trang đăng bài cho chủ trọ-->
+                    <li class="nav-item"><a class="nav-link" href="yeuthich.html">Yêu thích</a></li>
+                    <li class="nav-item"><a class="nav-link" href="hotro.html">Hỗ trợ</a></li><!--link bấm vào hỗ trợ-->
+                </ul><!--kết thúc danh sách menu-->
+                   <div class="d-flex gap-2 align-items-center">
+    <a href="dangnhap.html" class="btn btn-outline-primary fw-bold px-4">Đăng nhập</a>
+    <a href="dangky.html" class="btn btn-primary fw-bold px-4">Đăng ký</a>
+    <button class="btn btn-light rounded-circle shadow-sm ms-2" id="darkModeToggle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+        <i class="fa-solid fa-moon" id="themeIcon"></i>
+    </button>
+</div>
+            </div><!--đóng các hộp-->
+        </div>
+    </nav><!--kết thúc toàn bộ thanh menu trên cùng-->
+
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="mb-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="danhsach.html" class="text-decoration-none">Tìm phòng</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Chi tiết phòng</li>
+                    </ol>
+                </nav>
+            </div>
+
+            <div class="row g-5"> 
+                
+                <div class="col-lg-7">
+                    <div class="mb-3">
+    <h2 class="fw-bold text-dark mb-2">Phòng trọ khép kín mới xây siêu đẹp, đủ đồ</h2>
+    <div class="d-flex align-items-center text-muted">
+         <i class="fa-solid fa-location-dot text-danger fs-5 me-2"></i>
+         <h4 class="mb-0">Số 10, Ngõ 5 Ao Sen, Mộ Lao</h4>
+    </div>
+</div>
+                    <img src="images/phong1.jpg" class="img-fluid rounded-4 shadow mb-4 w-100 object-fit-cover" style="height: 450px;" alt="Chi tiết phòng">
+
+                    <div class="bg-white p-4 rounded-4 shadow-sm border">
+                        <h4 class="fw-bold mb-3"><i class="fa-solid fa-location-dot text-danger me-2"></i>Vị trí đắc địa:</h4>
+                        
+                        <p class="fs-5 mb-2">🎓 Cách PTIT, Kiến Trúc 200m </p>
+                        <p class="fs-5 mb-4">
+    <i class="fa-solid fa-bus text-danger me-2"></i> Gần siêu thị, bến xe bus
+</p>
+                        
+
+                        <hr> 
+
+                        <div class="d-flex align-items-center justify-content-between mt-4">
+                            <div>
+                                 <p class="mb-0 text-muted small fw-bold">LIÊN HỆ CHỦ TRỌ</p>
+                                 <h2 class="fw-bold text-dark mb-0">0366.604.516</h2>
+                            </div>
+                            <a href="tel:0366604516" class="btn btn-primary btn-lg rounded-pill px-5 fw-bold py-3 shadow">
+                                <i class="fa-solid fa-phone-volume me-2"></i> Gọi ngay
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                     <div class="bg-white p-4 rounded-4 shadow-sm border h-100">
+                        <h3 class="fw-bold text-primary mb-4 border-bottom pb-3">Thông tin chi tiết</h3>
+
+                        <div class="mb-4">
+                            <h2 class="text-primary fw-bold display-6">3.5 triệu<span class="fs-5 text-muted fw-normal">/tháng</span></h2>
+                            <span class="badge bg-light text-dark border px-3 py-2 mt-2 fs-6">
+                                <i class="fa-solid fa-ruler-combined me-2"></i> 25m²
+                            </span>
+                        </div>
+
+                        <ul class="list-unstyled d-flex flex-column gap-3 fs-5 fw-medium text-secondary">
+                            
+                            <li><i class="fa-solid fa-bolt text-warning me-3" style="width: 25px;"></i> Điện 3.8k/số</li>
+                            <li><i class="fa-solid fa-droplet text-info me-3" style="width: 25px;"></i> Nước 30k/khối</li>
+                            <li><i class="fa-solid fa-wifi text-primary me-3" style="width: 25px;"></i> Free WiFi</li>
+                            <li><i class="fa-solid fa-broom text-secondary me-3" style="width: 25px;"></i> Dịch vụ 50k/người</li>
+                            
+                            <li class="border-top my-2"></li> <li><i class="fa-solid fa-user-shield text-success me-3" style="width: 25px;"></i> Không chung chủ</li>
+                            <li><i class="fa-solid fa-restroom text-secondary me-3" style="width: 25px;"></i> Vệ sinh khép kín</li>
+                            <li><i class="fa-solid fa-snowflake text-info me-3" style="width: 25px;"></i> Có điều hòa</li>
+                            <li><i class="fa-solid fa-temperature-high text-danger me-3" style="width: 25px;"></i> Có bình nóng lạnh</li>
+                            <li><i class="fa-solid fa-fire-burner text-danger me-3" style="width: 25px;"></i> Có chỗ nấu ăn</li>
+                            <li><i class="fa-solid fa-motorcycle text-dark me-3" style="width: 25px;"></i> Để xe miễn phí</li>
+                            <li><i class="fa-solid fa-fingerprint text-dark me-3" style="width: 25px;"></i> Khóa vân tay</li>
+                            <li><i class="fa-solid fa-soap text-info me-3" style="width: 25px;"></i> Có máy giặt</li>
+                        </ul>
+                     </div>
+                </div>
+
+            </div> </div> </section>
+
+    <footer class="bg-white py-5 mt-auto border-top"><!--tạo khung trang chân trắng, có viền mờ bên trên-->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4"><!--cột đầu tiên to nhất để đặt logo và lời giới thiệu-->
+                    <a class="navbar-brand fw-bold fs-3 text-primary mb-3 d-block" href="#"> <!--khung chứa logo, ép đứng riêng 1 dòng-->
+                        <img src="images/logo.png" alt="TroHD" height="35">
+                    </a>
+                    <p class="text-muted">Hệ thống tìm kiếm phòng trọ số 1 tại khu vực Hà Đông dành cho sinh viên.</p><!--slogan giới thiệu về web màu xám nhẹ nhàng-->
+                </div>
+
+                <div class="col-md-2 mb-4"><!--cột thứ 2 chứa các link thông tin-->
+                    <h5 class="fw-bold mb-3">Về TroHD</h5><!--tiêu đề cột, in đậm-->
+                    <ul class="list-unstyled text-muted"><!--tạo danh sách liệt kê-->
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Giới thiệu</a></li><!--dòng chứa link-->
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Tin tức</a></li>
+                    </ul><!--kết thúc danh sách-->
+                </div><!--đóng cột thứ 2-->
+
+                <div class="col-md-3 mb-4"> <!--cột thứ 3 chiếm 3 phần chứa các link hỗ trợ, md là medium-->
+                    <h5 class="fw-bold mb-3">Hỗ trợ</h5><!--tiêu đề cột-->
+                    <ul class="list-unstyled text-muted"><!--danh sách các link đã sạch dấu chấm đầu dòng-->
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Hướng dẫn</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Quy định</a></li><!--các đường link hướng dẫn, quy định-->
+                    </ul>
+                </div><!--đóng cột hỗ trợ-->
+
+                <div class="col-md-3"><!--cột cuối cùng chứa thông tin  liên lạc-->
+                    <h5 class="fw-bold mb-3">Liên hệ</h5><!--Tiêu đề cột-->
+                    <p class="text-muted mb-1 fw-bold"><i class="fa-solid fa-phone me-2"></i>0366604516</p><!--dòng sdt đc in đậm-->
+                    <p class="text-muted"><i class="fa-solid fa-envelope me-2"></i>tranduc2911k5@gmail.com</p><!--email-->
+                </div><!--đóng cột liên hệ-->
+            </div><!--đóng hàng ngang chứa 4 cột-->
+            
+            <div class="text-center pt-4 border-top mt-4 text-muted small"><!--hộp chứa dòng bản quyền, căn chữ giữa-->
+                © 2026 Developed by Tran Van Duc. All rights reserved.
+            </div><!--đóng hộp bản quyền-->
+        </div>
+    </footer><!--kết thúc chân trang-->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script><!--bộ não của giao diện, mượt-->
+    <script src="js/main.js"></script>
+</body><!--đóng phần thân trang-->
+</html>

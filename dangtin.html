@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!--phần não của web-->
+    <meta charset="UTF-8"><!--viết tiếng việt k lỗi-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--cấu hình giúp web hiển thị đẹp-->
+    <title>TroHD</title><!--tên web hiển thị trên trình duyệt-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"><!--liên kết bootstrap-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!--thư viện lấy icon-->
+    <link rel="stylesheet" href="css/style.css"><!--liên kết file css-->
+</head>                                                                                                                 
+<body><!--bắt đaauf phần thân, nơi người xem nhìn thấy-->
+
+    <nav class="navbar navbar-expand bg-white shadow-sm sticky-top"><!--menu trắng, dính chặt lên đỉnh màn hình-->
+        <div class="container"><!--khung ép nội dung vào giữa màn hình-->
+            <a class="navbar-brand" href="index.html"><!--khu vực chứa logo, cài link bấm vào tự động quay về trang chủ-->
+                <img src="images/logo.png" alt="TroHD" height="40"><!--chèn ảnh logo và ép chiều cao-->
+            </a><!--đóng nút logo-->
+            
+            <div class="navbar-collapse"><!--Gom toàn bộ menu và nút bấm thành 1 khối-->
+                <ul class="navbar-nav mx-auto fw-bold gap-3 align-items-center"><!--menu đẩy vào chính giữa, chữ đậm, thẳng hàng-->
+                    <li class="nav-item"><a class="nav-link " href="index.html">Trang chủ</a></li><!--mục trang chủ đang xem được tô màu xanh-->
+                    <li class="nav-item"><a class="nav-link" href="danhsach.html">Danh sách phòng</a></li><!--link bấm sang trang danhsachphong-->
+                    <li class="nav-item"><a class="nav-link active text-primary" href="dangtin.html">Đăng tin</a></li><!--link bấm sang trang đăng bài cho chủ trọ-->
+                    <li class="nav-item"><a class="nav-link" href="yeuthich.html">Yêu thích</a></li>
+                    <li class="nav-item"><a class="nav-link" href="hotro.html">Hỗ trợ</a></li><!--link bấm vào hỗ trợ-->
+                </ul><!--kết thúc danh sách menu-->
+                   <div class="d-flex gap-2 align-items-center">
+    <a href="dangnhap.html" class="btn btn-outline-primary fw-bold px-4">Đăng nhập</a>
+    <a href="dangky.html" class="btn btn-primary fw-bold px-4">Đăng ký</a>
+    <button class="btn btn-light rounded-circle shadow-sm ms-2" id="darkModeToggle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+        <i class="fa-solid fa-moon" id="themeIcon"></i>
+    </button>
+</div>
+            </div><!--đóng các hộp-->
+        </div>
+    </nav><!--kết thúc toàn bộ thanh menu trên cùng-->
+
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    
+                    <div class="bg-white p-5 rounded-top-4 shadow-sm border-bottom-0">
+                        <h2 class="fw-bold mb-2 text-primary">Đăng tin phòng mới</h2>
+                        <p class="text-muted mb-0">Nhập đầy đủ thông tin để tiếp cận sinh viên nhanh nhất.</p>
+                    </div>
+
+                    <div class="bg-white px-5 pb-5 rounded-bottom-4 shadow-sm border border-top-0">
+                        <form>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Tiêu đề bài đăng <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="VD: Phòng trọ khép kín siêu đẹp..." style="border: 1px solid #ced4da; border-radius: 8px; padding: 10px;">
+                                </div>
+                                <div class="col-md-6 mt-3 mt-md-0">
+                                    <label class="form-label fw-bold">Địa chỉ chi tiết <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Số nhà, ngõ, phường..." style="border: 1px solid #ced4da; border-radius: 8px; padding: 10px;">
+                                </div>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Giá phòng (Triệu đồng/tháng)</label>
+                                    <input type="number" class="form-control" placeholder="Nhập giá phòng..." style="border: 1px solid #ced4da; border-radius: 8px; padding: 10px;">
+                                </div>
+                                <div class="col-md-6 mt-3 mt-md-0">
+                                    <label class="form-label fw-bold">Diện tích (m²)</label>
+                                    <input type="number" class="form-control" placeholder="Nhập diện tích..." style="border: 1px solid #ced4da; border-radius: 8px; padding: 10px;">
+                                </div>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Giá điện (nghìn đồng/số)</label>
+                                    <input type="number" class="form-control" placeholder="VD: 3.5" style="border: 1px solid #ced4da; border-radius: 8px; padding: 10px;">
+                                </div>
+                                <div class="col-md-6 mt-3 mt-md-0">
+                                    <label class="form-label fw-bold">Giá nước</label>
+                                    <input type="text" class="form-control" placeholder="VD: 100k/người" style="border: 1px solid #ced4da; border-radius: 8px; padding: 10px;">
+                                </div>
+                            </div>
+
+                            <div class="mb-5">
+                                <label class="form-label fw-bold">Gần trường đại học nào?</label>
+                                <input type="text" class="form-control" placeholder="VD: Học viện Công nghệ Bưu chính Viễn thông, PTIT, Phenikaa..." style="border: 1px solid #ced4da; border-radius: 8px; padding: 10px;">
+                            </div>
+
+                            <h5 class="fw-bold mb-3 border-bottom pb-2">Tiện ích có sẵn</h5>
+                            <div class="row gy-3 gx-4 mb-5">
+                                <div class="col-md-4 d-flex flex-column gap-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="chungchu">
+                                        <label class="form-check-label fw-medium" for="chungchu">Không chung chủ</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="vesinh" checked>
+                                        <label class="form-check-label fw-medium" for="vesinh">Vệ sinh khép kín</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="nauan" checked>
+                                        <label class="form-check-label fw-medium" for="nauan">Có chỗ nấu ăn</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 d-flex flex-column gap-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="dieuhoa">
+                                        <label class="form-check-label fw-medium" for="dieuhoa">Điều hòa</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="nonglanh">
+                                        <label class="form-check-label fw-medium" for="nonglanh">Bình nóng lạnh</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="bancong">
+                                        <label class="form-check-label fw-medium" for="bancong">Có ban công</label> 
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 d-flex flex-column gap-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="dexe" checked>
+                                        <label class="form-check-label fw-medium" for="dexe">Chỗ để xe</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="vantay">
+                                        <label class="form-check-label fw-medium" for="vantay">Khóa vân tay</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="maygiat">
+                                        <label class="form-check-label fw-medium" for="maygiat">Máy giặt chung</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-grid mt-4">
+                                <button type="button" class="btn btn-primary btn-lg fw-bold py-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalDangTin">
+    <i class="fa-solid fa-paper-plane me-2"></i>Đăng tin ngay
+</button>
+                                <div class="modal fade" id="modalDangTin" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow">
+            <div class="modal-body text-center p-5">
+                <div class="text-success mb-4">
+                    <i class="fa-solid fa-circle-check" style="font-size: 5rem;"></i>
+                </div>
+                <h3 class="fw-bold mb-3">Đăng tin thành công!</h3>
+                <p class="text-muted mb-4">Tuyệt vời! Tin của bạn đang được hệ thống kiểm duyệt. Phòng trọ này sẽ sớm đến tay các bạn sinh viên thôi!</p>
+                <div class="d-flex gap-2 justify-content-center">
+                    <button type="button" class="btn btn-outline-danger fw-bold rounded-pill px-4" data-bs-dismiss="modal">Đóng</button>
+                    <a href="index.html" class="btn btn-primary fw-bold rounded-pill px-4">Về trang chủ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-white py-5 mt-auto border-top"><!--tạo khung trang chân trắng, có viền mờ bên trên-->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4"><!--cột đầu tiên to nhất để đặt logo và lời giới thiệu-->
+                    <a class="navbar-brand fw-bold fs-3 text-primary mb-3 d-block" href="#"> <!--khung chứa logo, ép đứng riêng 1 dòng-->
+                        <img src="images/logo.png" alt="TroHD" height="35">
+                    </a>
+                    <p class="text-muted">Hệ thống tìm kiếm phòng trọ số 1 tại khu vực Hà Đông dành cho sinh viên.</p><!--slogan giới thiệu về web màu xám nhẹ nhàng-->
+                </div>
+
+                <div class="col-md-2 mb-4"><!--cột thứ 2 chứa các link thông tin-->
+                    <h5 class="fw-bold mb-3">Về TroHD</h5><!--tiêu đề cột, in đậm-->
+                    <ul class="list-unstyled text-muted"><!--tạo danh sách liệt kê-->
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Giới thiệu</a></li><!--dòng chứa link-->
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Tin tức</a></li>
+                    </ul><!--kết thúc danh sách-->
+                </div><!--đóng cột thứ 2-->
+
+                <div class="col-md-3 mb-4"> <!--cột thứ 3 chiếm 3 phần chứa các link hỗ trợ, md là medium-->
+                    <h5 class="fw-bold mb-3">Hỗ trợ</h5><!--tiêu đề cột-->
+                    <ul class="list-unstyled text-muted"><!--danh sách các link đã sạch dấu chấm đầu dòng-->
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Hướng dẫn</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Quy định</a></li><!--các đường link hướng dẫn, quy định-->
+                    </ul>
+                </div><!--đóng cột hỗ trợ-->
+
+                <div class="col-md-3"><!--cột cuối cùng chứa thông tin liên lạc-->
+                    <h5 class="fw-bold mb-3">Liên hệ</h5><!--Tiêu đề cột-->
+                    <p class="text-muted mb-1 fw-bold"><i class="fa-solid fa-phone me-2"></i>0366604516</p><!--dòng sdt đc in đậm-->
+                    <p class="text-muted"><i class="fa-solid fa-envelope me-2"></i>tranduc2911k5@gmail.com</p><!--email-->
+                </div><!--đóng cột liên hệ-->
+            </div><!--đóng hàng ngang chứa 4 cột-->
+            
+            <div class="text-center pt-4 border-top mt-4 text-muted small"><!--hộp chứa dòng bản quyền, căn chữ giữa-->
+                © 2026 Developed by Tran Van Duc. All rights reserved.
+            </div><!--đóng hộp bản quyền-->
+        </div>
+    </footer><!--kết thúc chân trang-->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script><!--bộ não của giao diện, mượt-->
+    <script src="js/main.js"></script>
+</body><!--đóng phần thân trang-->
+</html>

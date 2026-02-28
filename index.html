@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!--phần não của web-->
+    <meta charset="UTF-8"><!--viết tiếng việt k lỗi-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--cấu hình giúp web hiển thị đẹp-->
+    <title>TroHD</title><!--tên web hiển thị trên trình duyệt-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"><!--liên kết bootstrap-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!--thư viện lấy icon-->
+    <link rel="stylesheet" href="css/style.css"><!--liên kết file css-->
+</head>                                                                                                                 
+<body><!--bắt đaauf phần thân, nơi người xem nhìn thấy-->
+
+    <nav class="navbar navbar-expand bg-white shadow-sm sticky-top"><!--menu trắng, dính chặt lên đỉnh màn hình-->
+        <div class="container"><!--khung ép nội dung vào giữa màn hình-->
+            <a class="navbar-brand" href="index.html"><!--khu vực chứa logo, cài link bấm vào tự động quay về trang chủ-->
+                <img src="images/logo.png" alt="TroHD" height="40"><!--chèn ảnh logo và ép chiều cao-->
+            </a><!--đóng nút logo-->
+            
+            <div class="navbar-collapse"><!--Gom toàn bộ menu và nút bấm thành 1 khối-->
+                <ul class="navbar-nav mx-auto fw-bold gap-3 align-items-center"><!--menu đẩy vào chính giữa, chữ đậm, thẳng hàng-->
+                    <li class="nav-item"><a class="nav-link active text-primary" href="index.html">Trang chủ</a></li><!--mục trang chủ đang xem được tô màu xanh-->
+                    <li class="nav-item"><a class="nav-link" href="danhsach.html">Danh sách phòng</a></li><!--link bấm sang trang danhsachphong-->
+                    <li class="nav-item"><a class="nav-link" href="dangtin.html">Đăng tin</a></li><!--link bấm sang trang đăng bài cho chủ trọ-->
+                    <li class="nav-item"><a class="nav-link" href="yeuthich.html">Yêu thích</a></li>
+                    <li class="nav-item"><a class="nav-link" href="hotro.html">Hỗ trợ</a></li><!--link bấm vào hỗ trợ-->
+                </ul><!--kết thúc danh sách menu-->
+                <div class="d-flex gap-2 align-items-center">
+    <a href="dangnhap.html" class="btn btn-outline-primary fw-bold px-4">Đăng nhập</a>
+    <a href="dangky.html" class="btn btn-primary fw-bold px-4">Đăng ký</a>
+    <button class="btn btn-light rounded-circle shadow-sm ms-2" id="darkModeToggle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+        <i class="fa-solid fa-moon" id="themeIcon"></i>
+    </button>
+</div>
+            </div><!--đóng các hộp-->
+        </div>
+    </nav><!--kết thúc toàn bộ thanh menu trên cùng-->
+
+    <section class="py-5 bg-white"><!--tạo vùng nền trắng, giãn cách bên dưới rộng-->
+        <div class="container"><!--khung giúp gom nội dung vào giữa-->
+            <div class="row align-items-center"><!--tạo hàng ngang, căn chữ ảnh thẳng nhau-->
+                
+                <div class="col-lg-7 mb-4 mb-lg-0"><!--cột chứa chữ rộng hơn-->
+                    
+                    <h1 class="display-5 fw-bold text-dark mb-3 text-nowrap"><!--tiêu đề chính, ép chữ nằm trên 1 dòng-->
+                        Tìm trọ khu vực <span class="text-primary">Hà Đông</span><!--tiêu đề, chữ hà đông tô màu xanh-->
+                    </h1><!--kết thúc tiêu đề-->
+                    
+                    <p class="text-secondary mb-4"><!--slogan màu xám-->
+                        Thông tin minh bạch – Cập nhật liên tục – Hoàn toàn miễn phí
+                    </p>
+                    
+                    <div class="d-flex gap-5 mb-5"><!--hộp chứa 2 số 1000 5000, xếp ngang hàng cách rộng-->
+                        <div><!--gom nhóm số liệu sinh viên lại-->
+                            <h3 class="fw-bold text-primary mb-0">5000+</h3><!--số to, in đậm, xanh-->
+                            <span class="text-muted">sinh viên</span><!--chú thích nhỏ xám ngay dưới số-->
+                        </div><!--kết thúc số liệu đầu tiên-->
+                        <div><!--gom nhóm số liệu phòng trọ-->
+                            <h3 class="fw-bold text-primary mb-0">1000+</h3><!--số phòng trọ to, xanh-->
+                            <span class="text-muted">phòng trọ</span><!--chú thích-->
+                        </div><!--kết thúc số liệu-->
+                    </div><!--đóng cả hộp thống kê-->
+
+                    <div class="p-3 bg-white shadow rounded-4 border search-box"><!--tạo khung trắng, bo tròn góc làm nổi bật bộ lọc tìm kiếm-->
+                        <div class="mb-3 border-bottom pb-2 d-inline-block"><!--hộp nhỏ bao quanh tiêu đề giữ khoảng cách bên dưới-->
+                            <span class="text-primary fw-bold fs-5 border-bottom border-2 border-primary pb-2">Tìm trọ</span><!--chữ tìm trọ màu xanh, in đậm, gạch chân màu xanh-->
+                        </div><!--đóng hộp chứa tiêu đề-->
+
+                        <div class="row g-2 align-items-end"><!--tạo hàng ngang chứa ô nhập liệu, căn nút tìm thẳng hàng-->
+                            <div class="col-md-4"><!--chia cột ô nhập liệu chiếm 4 phần-->
+                                <label class="small fw-bold text-muted mb-1">Trường học</label><!--dòng chữ chú thích nhỏ màu xám trên đầu-->
+                                <select class="form-select fw-bold bg-light border-0"><!--tạo menu thả xuống màu xám nhạt-->
+                                    <option selected>Tất cả</option><!--mục mặc định khi người dùng chưa chọn gì-->
+                                    <option value="PTIT">Học viện Công nghệ Bưu chính Viễn thông</option><!--các lựa chọn cụ thể-->
+                                    <option value="KIENTRUC">Đại học Kiến trúc Hà Nội</option>
+                                    <option value="ANNINH">Học viện An ninh Nhân dân</option>
+                                    <option value="YCOTRUYEN">Học viện Y dược học Cổ truyền Việt Nam</option>
+                                    <option value="QUANY">Học viện Quân Y</option>
+                                    <option value="PHENIKAA">Đại học Phenikaa</option>
+                                    <option value="DAINAM">Đại học Đại Nam</option>
+                                    <option value="MO">Trường Đại học Mở Hà Nội</option>
+                                    <option value="CMC">Trường Đại học CMC</option>
+                                    <option value="KIEMSAT">Trường Đại học Kiểm sát Hà Nội</option>
+                                    <option value="CAODANGY">Trường Cao đẳng Y tế Hà Đông</option>
+                                    <option value="SUPHAMNGHETHUAT">Trường Đại học Sư phạm Nghệ thuật Trung ương</option>
+                                </select>
+                            </div><!--đóng cột chứa ô chọn trường học-->
+                            
+                            <div class="col-md-3"><!--chia cột ô khu vực chiếm 3 phần-->
+                                <label class="small fw-bold text-muted mb-1">Khu vực</label><!--chú thích nhỏ màu xám để người dùng biết là chỗ chọn phường-->
+                                <select class="form-select fw-bold bg-light border-0"><!--tạo menu thả xuống, nền xám nhạt và chữ đậm-->
+                                    <option>Tất cả</option><!--lựa chọn mặc định đầu tiên-->
+                                    <option>Mộ Lao</option><!--danh sách các phường-->
+                                    <option>Văn Quán</option>
+                                    <option>Phùng Khoang</option>
+                                    <option>Phúc La</option>
+                                    <option>Quang Trung</option>
+                                    <option>Dương Nội</option>
+                                    <option>Yên Nghĩa</option>
+                                    <option>Phú Lãm</option>
+                                    <option>Kiến Hưng</option>
+                                    <option>Phú La</option>
+                                    <option>Vạn Phúc</option>
+                                </select>
+                            </div><!--đóng cột chứa ô chọn khu vực-->
+
+                            <div class="col-md-3"><!--chia cột cho ô mức giá chiếm 3 phần-->
+                                <label class="small fw-bold text-muted mb-1">Mức giá</label><!--chú thích nhỏ màu xám để biết chỗ lọc theo giá tiền-->
+                                <select class="form-select fw-bold bg-light border-0"><!--menu thả xuống, giao diện xám nhạt-->
+                                    <option>Chọn mức giá</option><!--dòng chữ gợi ý hiện ra đầu tiên-->
+                                    <option>Dưới 1,5 triệu</option><!--các khoảng giá cụ thể để lựa chọn-->
+                                    <option>1,5 triệu - 2 triệu</option>
+                                    <option>2,5 triệu - 3 triệu</option>
+                                    <option>3 triệu - 3,5 triệu</option>
+                                    <option>3,5 triệu - 4 triệu</option>
+                                    <option>4 triệu - 4,5 triệu</option>
+                                    <option>Trên 4,5 triệu</option>
+                                </select><!--kết thúc cột menu thả xuống-->
+                            </div><!--đóng cột chứa ô chọn mức giá-->
+
+                            <div class="col-md-2"><!--cột nhỏ chiếm 2 phần chứa nút bấm-->
+                                <a href="danhsach.html" class="btn btn-primary w-100 fw-bold h-100 rounded-3 d-flex align-items-center justify-content-center"><!--biến thẻ link thành nút xanh, kéo full chiều cao, căn chữ vào giữa tâm-->
+                                    Tìm<!--chữ hiển thị trên nút bấm-->
+                                </a><!--đóng nút-->
+                            </div><!--đóng cột chứa nút-->
+                        </div><!--đóng hàng ngang-->
+                    </div><!--đóng khung trắng-->
+                </div>
+
+                <div class="col-lg-5 text-center"><!--cột bên phải chứa ảnh chiếm 5 phần,căn giữa nội dung-->
+                    <img src="images/anhtrangchu.jpg" 
+                         class="img-fluid rounded-5 shadow-lg" 
+                         alt="Ảnh banner"
+                         style="max-height: 500px; object-fit: cover;"><!--ép ảnh cao tối đa 500 và tự cắt phần thừa-->
+                </div><!--đóng cột chứa ảnh-->
+            </div><!--đóng hàng ngang to-->
+        </div><!--đóng khung container-->
+    </section><!--kết thúc toàn bộ banner và tìm kiếm đầu trang-->
+
+    <section class="py-5 bg-light"><!--tạo vùng mới nền xám nhạt-->
+        <div class="container"><!--khung ép nội dung vào giữa màn hình-->
+            <div class="d-flex justify-content-between align-items-end mb-4"><!--dùng flex đẩy tiêu đề sang trái và tiêu đề sang phải-->
+                <div><!--gom nhóm tiêu đề to và chữ nhỏ thành 1 khối-->
+                    <h2 class="fw-bold mb-0">Top phòng trọ nổi bật 🔥</h2><!--tiêu đề chính viết to, in đậm, có hình ngọn lửa-->
+                    <p class="text-muted mb-0"><!--dòng chữ chú thích nhỏ bên dưới-->
+                        Liên hệ chủ trọ ngay thôi! <i class="fa-solid fa-phone text-primary"></i><!--kêu gọi hành động kèm icon điện thoại xanh-->
+                    </p><!--kết thúc dòng chú thích-->
+                </div><!--đóng khối chứa tiêu đề-->
+                <a href="danhsach.html" class="btn btn-outline-primary fw-bold rounded-pill px-4"><!--tạo nút bấm viền xanh, bo tròn dẫn sang trang tìm kiếm-->
+                    Xem tất cả <i class="fa-solid fa-arrow-right ms-1"></i><!--nội dung chữ kèm theo mũi tên chỉ sang phải-->
+                </a><!--đóng nút bấm-->
+            </div><!--đóng hàng ngang-->
+
+            <div class="row g-4"><!--tạo hàng ngang chứa các thẻ phòng, cách nhau 4-->
+                <div class="col-md-6 col-lg-4"><!--chia cột-->
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden room-card"> <!--tạo khung thẻ trắng, bo tròn, cắt phòng thừa-->
+                        <div class="position-relative"><!--tạo khu định vị để gắn nút hot và tim-->
+                            <a href="chitiet.html">
+                            <img src="images/phong1.jpg" class="card-img-top" style="height: 220px; object-fit: cover;" alt="Phòng 1"><!--chèn ảnh phòng, ghép chiều cao cố định, tự cắt-->
+                            </a>
+                            <span class="position-absolute top-0 start-0 m-3 badge bg-danger">Hot</span><!--dán chữ hot nền đỏ vào góc trên trái-->
+                            <button class="btn btn-light position-absolute top-0 end-0 m-3 rounded-circle shadow-sm text-danger p-2"><i class="fa-regular fa-heart"></i></button><!--dán nút thả tim hình tròn vào góc trên bên phải-->
+                        </div><!--kết thúc khu vực chứa ảnh và các nút đè lên ảnh-->
+                        <div class="card-body"><!--khu vực chứa toàn bộ chữ viết dưới ảnh-->
+                            <h4 class="text-primary fw-bold mb-1">3.5 triệu<span class="fs-6 text-muted fw-normal">/tháng</span></h4><!--giá tiền viết to nhất, in đậm xanh-->
+                            <p class="text-muted mb-3 fw-medium"><i class="fa-solid fa-location-dot me-1"></i> Ngõ 5 Ao Sen, Mộ Lao</p><!--dòng địa chỉ xám, gắn icon định vị-->
+                            <div class="d-flex gap-3 text-secondary small fw-bold border-top pt-3"><!--hàng tiện ích cuối cùng, có đường viền mờ ngăn cách với địa chỉ-->
+                                <span><i class="fa-solid fa-restroom"></i> Vệ sinh khép kín</span><!--thông tin-->
+                                <span><i class="fa-solid fa-ruler-combined"></i> 25m²</span><!--diện tích-->
+                            </div><!--đóng hàng tiện ích-->
+                        </div><!--đóng nội dung chữ-->
+                    </div><!--đóng thẻ phòng-->
+                </div>
+                <div class="col-md-6 col-lg-4"><!--chia cột-->
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden room-card"><!--tạo khung thẻ trắng, bo tròn, cắt phần thừa-->
+                        <div class="position-relative"><!--tạo khu định vị để gắn nút hot và tim-->
+                            <a href="chitiet.html">
+                            <img src="images/phong2.jpg" class="card-img-top" style="height: 220px; object-fit: cover;" alt="Phòng 2"><!--chèn ảnh phòng, ghép chiều cao cố định, tự cắt--> </a>
+                            <button class="btn btn-light position-absolute top-0 end-0 m-3 rounded-circle shadow-sm text-danger p-2"><i class="fa-regular fa-heart"></i></button><!--dán nút thả tim hình tròn vào góc trên phải-->
+                        </div><!--kết thúc khu vực chứa ảnh và các nút đè lên ảnh-->
+                        <div class="card-body"><!--khu vực chứa toàn bộ chữ viết dưới ảnh-->
+                            <h4 class="text-primary fw-bold mb-1">2.8 triệu<span class="fs-6 text-muted fw-normal">/tháng</span></h4>
+                            <p class="text-muted mb-3 fw-medium"><i class="fa-solid fa-location-dot me-1"></i> Đường Chiến Thắng, Văn Quán</p>
+                            <div class="d-flex gap-3 text-secondary small fw-bold border-top pt-3">
+                                <span><i class="fa-solid fa-user-group"></i> Không chung chủ</span>
+                                <span><i class="fa-solid fa-ruler-combined"></i> 22m²</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden room-card">
+                        <div class="position-relative">
+                            <a href="chitiet.html">
+                            <img src="images/phong3.jpg" class="card-img-top" style="height: 220px; object-fit: cover;" alt="Phòng 3"></a>
+                            <span class="position-absolute top-0 start-0 m-3 badge bg-success">Mới</span>
+                            <button class="btn btn-light position-absolute top-0 end-0 m-3 rounded-circle shadow-sm text-danger p-2"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="text-primary fw-bold mb-1">3.7 triệu<span class="fs-6 text-muted fw-normal">/tháng</span></h4>
+                            <p class="text-muted mb-3 fw-medium"><i class="fa-solid fa-location-dot me-1"></i> Ngõ 159, Phùng Khoang</p>
+                            <div class="d-flex gap-3 text-secondary small fw-bold border-top pt-3">
+                                <span><i class="fa-solid fa-elevator"></i> Thang máy</span>
+                                <span><i class="fa-solid fa-ruler-combined"></i> 35m²</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden room-card">
+                        <div class="position-relative">
+                             <a href="chitiet.html">
+                            <img src="images/phong4.jpg" class="card-img-top" style="height: 220px; object-fit: cover;" alt="Phòng 4"></a>
+                            <button class="btn btn-light position-absolute top-0 end-0 m-3 rounded-circle shadow-sm text-danger p-2"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="text-primary fw-bold mb-1">3.0 triệu<span class="fs-6 text-muted fw-normal">/tháng</span></h4>
+                            <p class="text-muted mb-3 fw-medium"><i class="fa-solid fa-location-dot me-1"></i> Ngõ 10 Nguyễn Trác, Yên Nghĩa</p>
+                            <div class="d-flex gap-3 text-secondary small fw-bold border-top pt-3">
+                                <span><i class="fa-solid fa-motorcycle"></i> Để xe free </span>
+                                <span><i class="fa-solid fa-ruler-combined"></i> 28m²</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden room-card">
+                        <div class="position-relative">
+                            <a href="chitiet.html">
+                            <img src="images/phong5.jpg" class="card-img-top" style="height: 220px; object-fit: cover;" alt="Phòng 5"></a>
+                            <button class="btn btn-light position-absolute top-0 end-0 m-3 rounded-circle shadow-sm text-danger p-2"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="text-primary fw-bold mb-1">2.1 triệu<span class="fs-6 text-muted fw-normal">/tháng</span></h4>
+                            <p class="text-muted mb-3 fw-medium"><i class="fa-solid fa-location-dot me-1"></i> Ngõ 4 Lê Lợi, Quang Trung</p>
+                            <div class="d-flex gap-3 text-secondary small fw-bold border-top pt-3">
+                                <span><i class="fa-solid fa-leaf"></i> Ban công thoáng </span>
+                                <span><i class="fa-solid fa-ruler-combined"></i> 18m²</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden room-card">
+                        <div class="position-relative">
+                            <a href="chitiet.html">
+                            <img src="images/phong6.jpg" class="card-img-top" style="height: 220px; object-fit: cover;" alt="Phòng 6"></a>
+                            <span class="position-absolute top-0 start-0 m-3 badge bg-warning text-dark">Giá rẻ</span>
+                            <button class="btn btn-light position-absolute top-0 end-0 m-3 rounded-circle shadow-sm text-danger p-2"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="text-primary fw-bold mb-1">1.8 triệu<span class="fs-6 text-muted fw-normal">/tháng</span></h4>
+                            <p class="text-muted mb-3 fw-medium"><i class="fa-solid fa-location-dot me-1"></i> Ngõ 10 Trần Phú, Mộ Lao</p>
+                            <div class="d-flex gap-3 text-secondary small fw-bold border-top pt-3">
+                                <span><i class="fa-solid fa-shop"></i> Gần siêu thị</span>
+                                <span><i class="fa-solid fa-ruler-combined"></i> 17m²</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </section>
+
+    <footer class="bg-white py-5 mt-auto border-top"><!--tạo khung trang chân trắng, có viền mờ bên trên-->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4"><!--cột đầu tiên to nhất để đặt logo và lời giới thiệu-->
+                    <a class="navbar-brand fw-bold fs-3 text-primary mb-3 d-block" href="#"> <!--khung chứa logo, ép đứng riêng 1 dòng-->
+                        <img src="images/logo.png" alt="TroHD" height="35">
+                    </a>
+                    <p class="text-muted">Hệ thống tìm kiếm phòng trọ số 1 tại khu vực Hà Đông dành cho sinh viên.</p><!--slogan giới thiệu về web màu xám nhẹ nhàng-->
+                </div>
+
+                <div class="col-md-2 mb-4"><!--cột thứ 2 chứa các link thông tin-->
+                    <h5 class="fw-bold mb-3">Về TroHD</h5><!--tiêu đề cột, in đậm-->
+                    <ul class="list-unstyled text-muted"><!--tạo danh sách liệt kê-->
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Giới thiệu</a></li><!--dòng chứa link-->
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Tin tức</a></li>
+                    </ul><!--kết thúc danh sách-->
+                </div><!--đóng cột thứ 2-->
+
+                <div class="col-md-3 mb-4"> <!--cột thứ 3 chiếm 3 phần chứa các link hỗ trợ, md là medium-->
+                    <h5 class="fw-bold mb-3">Hỗ trợ</h5><!--tiêu đề cột-->
+                    <ul class="list-unstyled text-muted"><!--danh sách các link đã sạch dấu chấm đầu dòng-->
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Hướng dẫn</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Quy định</a></li><!--các đường link hướng dẫn, quy định-->
+                    </ul>
+                </div><!--đóng cột hỗ trợ-->
+
+                <div class="col-md-3"><!--cột cuối cùng chứa thông tin liên lạc-->
+                    <h5 class="fw-bold mb-3">Liên hệ</h5><!--Tiêu đề cột-->
+                    <p class="text-muted mb-1 fw-bold"><i class="fa-solid fa-phone me-2"></i>0366604516</p><!--dòng sdt đc in đậm-->
+                    <p class="text-muted"><i class="fa-solid fa-envelope me-2"></i>tranduc2911k5@gmail.com</p><!--email-->
+                </div><!--đóng cột liên hệ-->
+            </div><!--đóng hàng ngang chứa 4 cột-->
+            
+            <div class="text-center pt-4 border-top mt-4 text-muted small"><!--hộp chứa dòng bản quyền, căn chữ giữa-->
+                © 2026 Developed by Tran Van Duc. All rights reserved.
+            </div><!--đóng hộp bản quyền-->
+        </div>
+    </footer><!--kết thúc chân trang-->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script><!--bộ não của giao diện, mượt-->
+    <script src="js/main.js"></script>
+</body><!--đóng phần thân trang-->
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Người dùng TroHD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .bg-navy { background-color: #031331 !important; }
+        .card-stat { transition: transform 0.3s; cursor: default; }
+        .card-stat:hover { transform: translateY(-5px); }
+        .hover-menu:hover { background: rgba(255, 255, 255, 0.1); opacity: 1 !important; }
+        .active-menu { background: #0d6efd !important; opacity: 1 !important; }
+        .admin-sidebar { width: 260px; height: 100vh; position: fixed; display: flex; flex-direction: column; z-index: 1000; }
+        .admin-content { margin-left: 260px; padding: 2rem; }
+        .filter-select { min-width: 160px; border-radius: 20px; border: 2px solid #0d6efd; font-weight: bold; font-size: 0.9rem; }
+        .empty-state { padding: 3rem; text-align: center; color: #6c757d; }
+        .empty-state i { font-size: 4rem; margin-bottom: 1rem; opacity: 0.3; }
+    </style>
+</head>
+<body class="bg-light admin-body">
+
+    <div class="admin-sidebar bg-dark text-white shadow">
+        <div class="p-4 border-bottom border-secondary text-center">
+            <h4 class="fw-bold mb-0 text-primary"><i class="fa-solid fa-user-shield me-2"></i>Admin Panel</h4>
+        </div>
+        <ul class="nav flex-column py-3 fw-medium flex-grow-1">
+            <li class="nav-item">
+                <a class="nav-link text-white opacity-75 hover-menu py-3" href="admin.html">
+                    <i class="fa-solid fa-house-chimney me-3"></i>Quản lý tin đăng
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white opacity-75 hover-menu py-3 d-flex justify-content-between align-items-center" href="admin-hotro.html">
+                    <span><i class="fa-solid fa-headset me-3"></i>Quản lý hỗ trợ</span>
+                    <span class="badge bg-danger rounded-pill d-none" id="badge-hotro">0</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white active-menu py-3" href="admin-nguoidung.html">
+                    <i class="fa-solid fa-users me-3"></i>Người dùng
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white opacity-75 hover-menu py-3" href="admin-thongke.html">
+                    <i class="fa-solid fa-chart-pie me-3"></i>Thống kê
+                </a>
+            </li>
+        </ul>
+        <div class="p-4 border-top border-secondary">
+            <a href="javascript:void(0)" class="btn btn-outline-danger w-100 fw-bold rounded-pill" onclick="xacNhanDangXuat()">
+                <i class="fa-solid fa-right-from-bracket me-2"></i>Đăng xuất
+            </a>
+        </div>
+    </div>
+
+    <div class="admin-content">
+        <nav class="navbar bg-white shadow-sm px-4 py-3 mb-4 rounded-3 d-flex justify-content-between align-items-center">
+            <h5 class="fw-bold mb-0">Quản lý danh sách người dùng</h5>
+            <div class="d-flex align-items-center gap-3">
+                <span class="fw-bold text-dark" id="tenAdmin">Xin chào, Admin!</span>
+                <img src="https://ui-avatars.com/api/?name=Admin&background=0D8ABC&color=fff" class="rounded-circle" width="40" alt="Avatar">
+            </div>
+        </nav>
+
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 bg-navy text-white p-4 card-stat">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1 opacity-75 small fw-bold text-uppercase">Tổng thành viên</h6>
+                            <h2 class="fw-bold mb-0" id="stat-user-tong">0</h2>
+                        </div>
+                        <i class="fa-solid fa-user-group fs-1 opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 bg-primary text-white p-4 card-stat">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1 opacity-75 small fw-bold text-uppercase">Chủ trọ</h6>
+                            <h2 class="fw-bold mb-0" id="stat-user-chu">0</h2>
+                        </div>
+                        <i class="fa-solid fa-user-tie fs-1 opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 bg-success text-white p-4 card-stat">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1 opacity-75 small fw-bold text-uppercase">Sinh viên</h6>
+                            <h2 class="fw-bold mb-0" id="stat-user-sv">0</h2>
+                        </div>
+                        <i class="fa-solid fa-user-graduate fs-1 opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-4 shadow-sm border">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="fw-bold mb-0"><i class="fa-solid fa-users-gear me-2 text-primary"></i>Danh sách tài khoản</h5>
+                <div class="d-flex gap-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="fw-bold text-muted small">Vai trò:</span>
+                        <select class="form-select filter-select shadow-sm" id="filterRole" onchange="taiDanhSachNguoiDung()">
+                            <option value="TAT_CA">Tất cả</option>
+                            <option value="CHU_TRO">🏠 Chủ trọ</option>
+                            <option value="SINH_VIEN">🎓 Sinh viên</option>
+                            <option value="QUAN_TRI">🛡️ Admin</option>
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="fw-bold text-muted small">Trạng thái:</span>
+                        <select class="form-select filter-select shadow-sm" id="filterStatus" onchange="taiDanhSachNguoiDung()">
+                            <option value="TAT_CA">Tất cả</option>
+                            <option value="Hoạt động">🟢 Hoạt động</option>
+                            <option value="Đã khóa">🔴 Đã khóa</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" style="width: 100px;">ID</th>
+                            <th scope="col">Tài khoản</th>
+                            <th scope="col">Họ và Tên</th>
+                            <th scope="col">Vai trò</th>
+                            <th scope="col">Trạng thái</th>
+                            <th scope="col" class="text-center">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bang-nguoi-dung"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalXacNhanUser" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-body text-center p-5">
+                    <div id="iconXacNhanUser" class="mb-4"></div>
+                    <h4 class="fw-bold mb-3" id="tieuDeXacNhanUser">Xác nhận</h4>
+                    <p class="text-muted mb-4" id="noiDungXacNhanUser"></p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <button type="button" class="btn btn-light fw-bold px-4 rounded-pill" data-bs-dismiss="modal">Hủy bỏ</button>
+                        <button type="button" class="btn fw-bold px-4 rounded-pill" id="btnDongYXacNhanUser">Đồng ý</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        if(localStorage.getItem('vaiTro') !== 'QUAN_TRI') window.location.href = 'dangnhap.html';
+        document.getElementById('tenAdmin').innerText = 'Xin chào, ' + (localStorage.getItem('taiKhoan') || 'Admin') + '!';
+
+        let userDangChon = null;
+        let trangThaiMoi = '';
+
+        function taiDanhSachNguoiDung() {
+            const role = document.getElementById('filterRole').value;
+            const status = document.getElementById('filterStatus').value;
+            
+            fetch(`http://127.0.0.1:9090/api/danh-sach-tai-khoan?quyenHan=${role}&trangThai=${encodeURIComponent(status)}`)
+            .then(res => res.json())
+            .then(data => {
+                const tbody = document.getElementById('bang-nguoi-dung');
+                
+                if (role === 'TAT_CA' && status === 'TAT_CA') {
+                    document.getElementById('stat-user-tong').innerText = data.length;
+                    document.getElementById('stat-user-chu').innerText = data.filter(u => u.quyenHan === 'CHU_TRO').length;
+                    document.getElementById('stat-user-sv').innerText = data.filter(u => u.quyenHan === 'SINH_VIEN').length;
+                }
+
+                if (data.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="6">
+                                <div class="empty-state">
+                                    <i class="fa-solid fa-users-slash"></i>
+                                    <h5 class="fw-bold">Không tìm thấy tài khoản nào</h5>
+                                    <p class="mb-0">Dữ liệu trống cho bộ lọc hiện tại.</p>
+                                </div>
+                            </td>
+                        </tr>`;
+                    return;
+                }
+
+                let html = '';
+                data.forEach(u => {
+                    let isAdmin = u.quyenHan === 'QUAN_TRI';
+                    let isLocked = u.trangThai === 'Đã khóa';
+                    let quyenBadge = isAdmin ? 'bg-danger' : (u.quyenHan === 'CHU_TRO' ? 'bg-primary' : 'bg-success');
+                    let statusBadge = isLocked ? 'bg-secondary' : 'bg-success';
+                    
+                    html += `
+                    <tr>
+                        <td class="fw-bold text-muted">#${u.maNguoiDung}</td>
+                        <td class="fw-bold">${u.tenDangNhap}</td>
+                        <td>${u.hoTen || 'N/A'}</td>
+                        <td><span class="badge ${quyenBadge} px-3 py-2 rounded-pill">${u.quyenHan}</span></td>
+                        <td><span class="badge ${statusBadge} px-3 py-2 rounded-pill">${u.trangThai || 'Hoạt động'}</span></td>
+                        <td class="text-center">
+                            ${!isAdmin ? `
+                                <button class="btn btn-sm ${isLocked ? 'btn-success' : 'btn-outline-danger'} fw-bold px-3 rounded-pill" 
+                                    onclick="moModalUser(${u.maNguoiDung}, '${u.tenDangNhap}', '${isLocked ? 'Hoạt động' : 'Đã khóa'}')">
+                                    <i class="fa-solid ${isLocked ? 'fa-unlock' : 'fa-user-slash'} me-1"></i> ${isLocked ? 'Mở' : 'Khóa'}
+                                </button>
+                            ` : '<small class="text-muted">Hệ thống</small>'}
+                        </td>
+                    </tr>`;
+                });
+                tbody.innerHTML = html;
+            });
+        }
+
+        function capNhatBadgeHoTro() {
+            const badge = document.getElementById('badge-hotro');
+            if (!badge) return;
+            fetch('http://127.0.0.1:9090/api/danh-sach-ho-tro')
+                .then(res => res.json())
+                .then(data => {
+                    const soTinMoi = data.filter(h => h.trangThai === 'CHO_PHAN_HOI' || h.trangThai === 'NEW').length;
+                    if (soTinMoi > 0) {
+                        badge.innerText = soTinMoi;
+                        badge.classList.remove('d-none');
+                    } else {
+                        badge.classList.add('d-none');
+                    }
+                })
+                .catch(() => badge.classList.add('d-none'));
+        }
+
+        function moModalUser(id, name, status) {
+            userDangChon = id;
+            trangThaiMoi = status;
+            const btn = document.getElementById('btnDongYXacNhanUser');
+            const iconDiv = document.getElementById('iconXacNhanUser');
+            if(status === 'Đã khóa') {
+                document.getElementById('tieuDeXacNhanUser').innerText = 'Khóa tài khoản';
+                document.getElementById('noiDungXacNhanUser').innerHTML = `Khóa tài khoản <b>${name}</b>?`;
+                iconDiv.innerHTML = '<i class="fa-solid fa-user-lock text-danger" style="font-size: 5rem;"></i>';
+                btn.className = 'btn btn-danger fw-bold px-4 rounded-pill';
+            } else {
+                document.getElementById('tieuDeXacNhanUser').innerText = 'Mở khóa tài khoản';
+                document.getElementById('noiDungXacNhanUser').innerHTML = `Mở khóa cho <b>${name}</b>?`;
+                iconDiv.innerHTML = '<i class="fa-solid fa-user-check text-success" style="font-size: 5rem;"></i>';
+                btn.className = 'btn btn-success fw-bold px-4 rounded-pill';
+            }
+            new bootstrap.Modal(document.getElementById('modalXacNhanUser')).show();
+        }
+
+        document.getElementById('btnDongYXacNhanUser').addEventListener('click', function() {
+            bootstrap.Modal.getInstance(document.getElementById('modalXacNhanUser')).hide();
+            fetch(`http://127.0.0.1:9090/api/trang-thai-tai-khoan/${userDangChon}?trangThaiMoi=${encodeURIComponent(trangThaiMoi)}`, { method: 'PUT' })
+            .then(() => {
+                taiDanhSachNguoiDung();
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            taiDanhSachNguoiDung();
+            capNhatBadgeHoTro();
+            setInterval(capNhatBadgeHoTro, 5000);
+        });
+    </script>
+</body>
+</html>

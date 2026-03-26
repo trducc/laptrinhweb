@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Thống kê TroHD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .admin-body { display: flex; min-height: 100vh; background-color: #f4f6f9 !important; }
+        .admin-sidebar { width: 260px; height: 100vh; position: fixed; display: flex; flex-direction: column; z-index: 1000; }
+        .admin-content { flex-grow: 1; margin-left: 260px; padding: 2rem; }
+        .hover-menu:hover { background: rgba(255, 255, 255, 0.1); opacity: 1 !important; }
+        .active-menu { background: #0d6efd !important; opacity: 1 !important; }
+
+        .navbar-custom {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); height: 100%; }
+        
+        .chart-container-donut { position: relative; height: 300px; width: 100%; }
+        .chart-center-text {
+            position: absolute; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%); text-align: center; width: 100%;
+            pointer-events: none;
+        }
+        .chart-center-text h3 { font-size: 1.8rem; font-weight: 800; margin: 0; color: #333; }
+
+        .modal-logout-custom .modal-content { border-radius: 20px; border: none; }
+        .modal-logout-custom .modal-dialog { max-width: 550px; }
+        .modal-logout-custom .logout-msg { white-space: nowrap; font-size: 1.1rem; }
+        .modal-logout-custom .btn-confirm { background: #0d6efd; color: white; border-radius: 50px; font-weight: bold; padding: 10px 35px; border: none; }
+        .modal-logout-custom .btn-cancel { background: #f8f9fa; color: #333; border-radius: 50px; font-weight: bold; padding: 10px 35px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body class="bg-light admin-body">
+
+    <div class="admin-sidebar bg-dark text-white shadow">
+        <div class="p-4 border-bottom border-secondary text-center">
+            <h4 class="fw-bold mb-0 text-primary"><i class="fa-solid fa-user-shield me-2"></i>Admin Panel</h4>
+        </div>
+        <ul class="nav flex-column py-3 fw-medium flex-grow-1">
+            <li class="nav-item"><a class="nav-link text-white opacity-75 hover-menu py-3" href="admin.html"><i class="fa-solid fa-house-chimney me-3"></i>Quản lý tin đăng</a></li>
+            <li class="nav-item"><a class="nav-link text-white opacity-75 hover-menu py-3 d-flex justify-content-between align-items-center" href="admin-hotro.html"><span><i class="fa-solid fa-headset me-3"></i>Quản lý hỗ trợ</span><span class="badge bg-danger rounded-pill d-none" id="badge-hotro">0</span></a></li>
+            <li class="nav-item"><a class="nav-link text-white opacity-75 hover-menu py-3" href="admin-nguoidung.html"><i class="fa-solid fa-users me-3"></i>Người dùng</a></li>
+            <li class="nav-item"><a class="nav-link text-white active-menu py-3" href="admin-thongke.html"><i class="fa-solid fa-chart-pie me-3"></i>Thống kê</a></li>
+        </ul>
+        <div class="p-4 border-top border-secondary">
+            <button class="btn btn-outline-danger w-100 fw-bold rounded-pill" onclick="moModalLogout()">
+                <i class="fa-solid fa-right-from-bracket me-2"></i>Đăng xuất
+            </button>
+        </div>
+    </div>
+
+    <div class="admin-content">
+        <div class="navbar-custom">
+            <h5 class="fw-bold mb-0">Hệ thống thống kê phân tích</h5>
+            <div class="d-flex align-items-center gap-3">
+                <span class="fw-bold text-dark" id="tenAdmin">Xin chào, admin!</span>
+                <img src="https://ui-avatars.com/api/?name=Admin&background=0D8ABC&color=fff" class="rounded-circle" width="40">
+            </div>
+        </div>
+
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm p-4 rounded-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div><h6 class="text-muted small fw-bold text-uppercase">Thành viên</h6><h2 class="fw-bold mb-0" id="stat-user">0</h2></div>
+                        <div class="bg-primary bg-opacity-10 p-3 rounded-circle text-primary"><i class="fa-solid fa-users fs-4"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm p-4 rounded-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div><h6 class="text-muted small fw-bold text-uppercase">Phòng trọ</h6><h2 class="fw-bold mb-0" id="stat-phong">0</h2></div>
+                        <div class="bg-success bg-opacity-10 p-3 rounded-circle text-success"><i class="fa-solid fa-house-circle-check fs-4"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm p-4 rounded-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div><h6 class="text-muted small fw-bold text-uppercase">Tổng lượt xem</h6><h2 class="fw-bold mb-0" id="stat-view">0</h2></div>
+                        <div class="bg-info bg-opacity-10 p-3 rounded-circle text-info"><i class="fa-solid fa-eye fs-4"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="chart-card">
+                    <h6 class="fw-bold mb-4 text-center">Phân loại người dùng</h6>
+                    <div class="chart-container-donut">
+                        <canvas id="chartNguoiDung"></canvas>
+                        <div class="chart-center-text">
+                            <span class="text-muted small fw-bold">TỔNG</span>
+                            <h3 id="totalUserCenter">0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="chart-card">
+                    <h6 class="fw-bold mb-4">Top 6 phòng trọ nổi bật</h6>
+                    <div style="height: 300px;">
+                        <canvas id="chartTopPhong"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade modal-logout-custom" id="modalLogout" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow-lg">
+                <div class="modal-body text-center p-5">
+                    <div class="mb-4">
+                        <i class="fa-solid fa-triangle-exclamation text-warning" style="font-size: 4rem;"></i>
+                    </div>
+                    <h3 class="fw-bold mb-3">Đăng xuất</h3>
+                    <p class="text-muted mb-5 logout-msg">Bạn có chắc chắn muốn đăng xuất khỏi hệ thống chứ?</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-confirm" onclick="logoutReal()">Đồng ý</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function moModalLogout() { new bootstrap.Modal(document.getElementById('modalLogout')).show(); }
+        function logoutReal() { localStorage.clear(); window.location.href = 'dangnhap.html'; }
+
+        document.getElementById('tenAdmin').innerText = 'Xin chào, ' + (localStorage.getItem('taiKhoan') || 'admin') + '!';
+        let myChart1, myChart2;
+
+        async function taiDuLieu() {
+            try {
+                const [resStat, resTop] = await Promise.all([
+                    fetch('http://127.0.0.1:9090/api/thong-ke'),
+                    fetch('http://127.0.0.1:9090/api/top-6-noi-bat')
+                ]);
+                const data = await resStat.json();
+                const topPhong = await resTop.json();
+                
+                document.getElementById('stat-user').innerText = data.tongUser || 0;
+                document.getElementById('stat-phong').innerText = data.tongPhong || 0;
+                document.getElementById('stat-view').innerText = (data.tongView || 0).toLocaleString();
+                document.getElementById('totalUserCenter').innerText = data.tongUser || 0;
+
+                veBieuDoTron(data.chuTro || 0, data.sinhVien || 0);
+                veBieuDoCot(Array.isArray(topPhong) ? topPhong : []);
+            } catch (err) { console.error(err); }
+        }
+
+        function veBieuDoTron(chu, sv) {
+            const ctx = document.getElementById('chartNguoiDung').getContext('2d');
+            if(myChart1) myChart1.destroy();
+            myChart1 = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Chủ trọ', 'Sinh viên'],
+                    datasets: [{
+                        data: [chu, sv],
+                        backgroundColor: ['#87CEFA', '#00BFFF'],
+                        borderWidth: 5, borderColor: '#ffffff'
+                    }]
+                },
+                options: { cutout: '80%', plugins: { legend: { position: 'bottom' } }, maintainAspectRatio: false }
+            });
+        }
+
+        function veBieuDoCot(list) {
+            const ctx = document.getElementById('chartTopPhong').getContext('2d');
+            if(myChart2) myChart2.destroy();
+            
+            const labels = list.length > 0 ? list.map(p => `#PT${p.maPhong}`) : ['Chưa có dữ liệu'];
+            const dataView = list.length > 0 ? list.map(p => p.luotXem || 0) : [0];
+
+            myChart2 = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Lượt xem',
+                        data: dataView,
+                        backgroundColor: '#87CEFA',
+                        borderRadius: 8, 
+                        barThickness: list.length > 0 ? 50 : 0
+                    }]
+                },
+                options: {
+                    scales: { 
+                        y: { 
+                            beginAtZero: true,
+                            suggestedMax: 5, 
+                            ticks: {
+                                stepSize: 1,
+                                precision: 0
+                            }
+                        }, 
+                        x: { 
+                            grid: { display: false } 
+                        } 
+                    },
+                    plugins: { legend: { display: false } },
+                    maintainAspectRatio: false
+                }
+            });
+        }
+        document.addEventListener("DOMContentLoaded", taiDuLieu);
+    </script>
+</body>
+</html>

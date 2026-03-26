@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><!--phần não của web-->
+<head>
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-    <meta charset="UTF-8"><!--viết tiếng việt k lỗi-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--cấu hình giúp web hiển thị đẹp-->
-    <title>TroHD</title><!--tên web hiển thị trên trình duyệt-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"><!--liên kết bootstrap-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!--thư viện lấy icon-->
-    <link rel="stylesheet" href="css/style.css"><!--liên kết file css-->
-</head>                                                                                                                 
-<body><!--bắt đầu phần thân, nơi người xem nhìn thấy-->
-    <body><nav class="navbar navbar-expand bg-white shadow-sm sticky-top">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TroHD - Hỗ trợ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .back-to-top {
+            position: fixed; bottom: 30px; right: 30px;
+            width: 45px; height: 45px; background: rgba(13, 110, 253, 0.8);
+            backdrop-filter: blur(5px); color: white; border: none;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-size: 1.2rem; cursor: pointer;
+            opacity: 0; visibility: hidden; transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .back-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .back-to-top:hover { background: rgba(13, 110, 253, 1); transform: scale(1.1); }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand bg-white shadow-sm sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <img src="images/logo.png" alt="TroHD" height="40">
-            </a>
+            <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="TroHD" height="40"></a>
             <div class="navbar-collapse">
                 <ul class="navbar-nav mx-auto fw-bold gap-3 align-items-center">
                     <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
@@ -23,18 +35,22 @@
                     <li class="nav-item"><a class="nav-link" href="yeuthich.html">Yêu thích</a></li>
                     <li class="nav-item"><a class="nav-link active text-primary" href="hotro.html">Hỗ trợ</a></li>
                 </ul>
-                   <div class="d-flex gap-2 align-items-center">
-    <a href="dangnhap.html" class="btn btn-outline-primary fw-bold px-4">Đăng nhập</a>
-    <a href="dangky.html" class="btn btn-primary fw-bold px-4">Đăng ký</a>
-    <button class="btn btn-light rounded-circle shadow-sm ms-2" id="darkModeToggle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
-        <i class="fa-solid fa-moon" id="themeIcon"></i>
-    </button>
-</div>
+                <div id="user-auth-zone" class="d-flex gap-2 align-items-center">
+                    <a href="dangnhap.html" class="btn btn-outline-primary fw-bold px-4">Đăng nhập</a>
+                    <a href="dangky.html" class="btn btn-primary fw-bold px-4">Đăng ký</a>
+                    <button id="dropdownNotification" class="btn btn-light rounded-circle shadow-sm ms-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fa-regular fa-bell text-dark"></i>
+                        <span id="badge-thong-bao" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none" style="font-size: 0.6rem;">0</span>
+                    </button>
+                    <button class="btn btn-light rounded-circle shadow-sm" id="darkModeToggle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
-    <section class="py-5 bg-light min-vh-100">
-<section class="py-5 bg-light min-vh-100">
+
+    <section class="py-5 bg-light flex-grow-1">
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="fw-bold text-primary">Trung tâm hỗ trợ TroHD</h2>
@@ -45,16 +61,15 @@
                 <div class="col-lg-6">
                     <h4 class="fw-bold mb-4">Câu hỏi thường gặp (FAQ)</h4>
                     <div class="accordion shadow-sm" id="faqAccordion">
-                        
                         <div class="accordion-item border-0 mb-3 rounded-3 overflow-hidden">
                             <h2 class="accordion-header">
                                 <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                                    Làm sao để tránh bị lừa đảo tiền cọc phòng?
+                                    1. Làm sao để tránh bị lừa đảo tiền cọc phòng?
                                 </button>
                             </h2>
                             <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
                                 <div class="accordion-body text-muted">
-                                    Tuyệt đối KHÔNG chuyển khoản đặt cọc khi chưa đến xem phòng trực tiếp, chưa gặp chính chủ và chưa đọc kỹ hợp đồng thuê nhà. Nếu thấy dấu hiệu khả nghi, hãy bấm nút "Báo cáo" ngay.
+                                    Tuyệt đối <b>KHÔNG</b> chuyển khoản đặt cọc khi chưa đến xem phòng trực tiếp, chưa gặp chính chủ và chưa đọc kỹ hợp đồng thuê nhà. Nếu thấy dấu hiệu khả nghi, hãy báo cáo ngay cho admin hệ thống TroHD.
                                 </div>
                             </div>
                         </div>
@@ -62,25 +77,12 @@
                         <div class="accordion-item border-0 mb-3 rounded-3 overflow-hidden">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                                    Thuê phòng qua TroHD có mất phí môi giới không?
+                                    2. Thuê phòng qua TroHD có mất phí môi giới không?
                                 </button>
                             </h2>
                             <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                                 <div class="accordion-body text-muted">
-                                    Hoàn toàn KHÔNG. Nền tảng miễn phí 100% cho các bạn sinh viên. Bạn làm việc và thanh toán trực tiếp với chủ nhà, không qua trung gian hay môi giới.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item border-0 mb-3 rounded-3 overflow-hidden">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
-                                    Làm sao để liên hệ với chủ trọ?
-                                </button>
-                            </h2>
-                            <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-muted">
-                                    Trong mỗi trang chi tiết phòng, bạn sẽ thấy phần "Liên hệ chủ trọ" kèm theo số điện thoại. Bạn chỉ cần bấm vào nút "Gọi ngay" hoặc lưu số lại để trao đổi trực tiếp.
+                                    Hoàn toàn <b>KHÔNG</b>. Nền tảng miễn phí 100% cho các bạn sinh viên. Bạn làm việc và thanh toán trực tiếp với chủ nhà, không qua trung gian hay môi giới.
                                 </div>
                             </div>
                         </div>
@@ -88,12 +90,12 @@
                         <div class="accordion-item border-0 mb-3 rounded-3 overflow-hidden">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                                    Tin đăng của tôi bao lâu thì được duyệt?
+                                    3. Làm sao để lưu lại những phòng tôi ưng ý?
                                 </button>
                             </h2>
                             <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                                 <div class="accordion-body text-muted">
-                                    Admin hệ thống sẽ kiểm duyệt tin. Thông thường, tin của bạn sẽ được duyệt sau 15 - 30 phút trong giờ làm việc.
+                                    Bạn chỉ cần bấm vào biểu tượng <b><i class="fa-solid fa-heart text-danger"></i> (Trái tim)</b> ở trên mỗi hình ảnh phòng trọ. Phòng sẽ tự động được lưu vào mục <b>"Yêu thích"</b> trên thanh menu để bạn tiện xem lại sau.
                                 </div>
                             </div>
                         </div>
@@ -101,89 +103,149 @@
                         <div class="accordion-item border-0 mb-3 rounded-3 overflow-hidden">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
-                                    Tại sao tin đăng của tôi bị từ chối?
+                                    4. Dành cho Chủ trọ: Tin đăng bao lâu thì được duyệt?
                                 </button>
                             </h2>
                             <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                                 <div class="accordion-body text-muted">
-                                    Tin thường bị từ chối do: Hình ảnh mờ hoặc copy từ mạng, giá cả không hợp lý, nội dung chứa từ ngữ phản cảm hoặc địa chỉ không rõ ràng. Vui lòng kiểm tra và cập nhật lại thông tin.
+                                    Admin hệ thống sẽ kiểm duyệt tin thủ công để đảm bảo chất lượng. Thông thường, tin của bạn sẽ được duyệt sau 15 - 30 phút trong giờ hành chính. Khi tin được duyệt, hệ thống sẽ gửi <b>Thông báo (biểu tượng Chuông)</b> cho bạn.
                                 </div>
                             </div>
                         </div>
 
-                        
-
+                        <div class="accordion-item border-0 mb-3 rounded-3 overflow-hidden">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                    5. Dành cho Chủ trọ: Tại sao tin đăng của tôi bị từ chối?
+                                </button>
+                            </h2>
+                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    Tin thường bị từ chối do: Hình ảnh mờ hoặc copy từ mạng, giá cả không hợp lý, nội dung chứa từ ngữ phản cảm hoặc địa chỉ không rõ ràng. Vui lòng kiểm tra và cập nhật lại thông tin cho chính xác.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-lg-6">
                     <div class="bg-white p-4 rounded-4 shadow-sm border">
                         <h4 class="fw-bold mb-4">Gửi yêu cầu hỗ trợ</h4>
-                        <form>
+                        <form id="supportForm">
                             <div class="mb-3">
-                                <label class="form-label fw-bold">Họ và tên</label>
-                                <input type="text" class="form-control bg-light" placeholder="Nhập họ và tên của bạn">
+                                <label class="form-label fw-bold">Họ và tên <span class="text-danger">*</span></label>
+                                <input type="text" id="ht-hoTen" class="form-control bg-light" placeholder="Nhập họ và tên của bạn" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold">Email hoặc Số điện thoại</label>
-                                <input type="text" class="form-control bg-light" placeholder="Để chúng tôi liên hệ lại với bạn">
+                                <label class="form-label fw-bold">Email hoặc Số điện thoại <span class="text-danger">*</span></label>
+                                <input type="text" id="ht-lienHe" class="form-control bg-light" placeholder="Để chúng tôi liên hệ lại với bạn" required>
                             </div>
                             <div class="mb-4">
-                                <label class="form-label fw-bold">Vấn đề bạn đang gặp phải?</label>
-                                <textarea class="form-control bg-light" rows="4" placeholder="Mô tả chi tiết vấn đề..."></textarea>
+                                <label class="form-label fw-bold">Vấn đề bạn đang gặp phải? <span class="text-danger">*</span></label>
+                                <textarea id="ht-noiDung" class="form-control bg-light" rows="4" placeholder="Mô tả chi tiết vấn đề (Lỗi giao diện, tố cáo lừa đảo, cần hỗ trợ đăng tin...)" required></textarea>
                             </div>
-                            <button type="button" onclick="alert('Đã gửi yêu cầu hỗ trợ thành công! Chúng tôi sẽ liên hệ lại sớm nhất.')" class="btn btn-primary w-100 fw-bold py-3 shadow-sm rounded-pill">
+                            <button type="submit" class="btn btn-primary w-100 fw-bold py-3 shadow-sm rounded-pill">
                                 <i class="fa-solid fa-paper-plane me-2"></i>Gửi yêu cầu
                             </button>
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
-    
 
-    <footer class="bg-white py-5 mt-auto border-top"><!--tạo khung trang chân trắng, có viền mờ bên trên-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    // Tự động cập nhật menu khi load trang
+    if (typeof capNhatMenu === "function") capNhatMenu();
+
+    const form = document.getElementById('supportForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            const data = {
+                hoTen: document.getElementById('ht-hoTen').value,
+                lienHe: document.getElementById('ht-lienHe').value,
+                noiDung: document.getElementById('ht-noiDung').value
+            };
+
+            fetch('http://127.0.0.1:9090/api/gui-ho-tro', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.text())
+            .then(ketQua => {
+                // Thay alert bằng thông báo nổi chuyên nghiệp từ main.js
+                hienThiThongBao("Thành công", "Yêu cầu của bạn đã được gửi tới Admin TroHD!", "thanhcong", () => {
+                    form.reset();
+                    window.location.reload(); // Load lại để cập nhật trạng thái
+                });
+            })
+            .catch(err => {
+                // Thông báo nổi khi có lỗi kết nối hoặc 404
+                hienThiThongBao("Lỗi hệ thống", "Không tìm thấy API hoặc Server chưa chạy, Đức kiểm tra lại nhé!", "loi");
+                console.error("Lỗi 404 hoặc kết nối:", err);
+            });
+        });
+    }
+});
+    </script>
+
+    <div class="modal fade" id="modalHoTro" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-body text-center p-5">
+                    <div class="text-success mb-4">
+                        <i class="fa-solid fa-circle-check" style="font-size: 5rem;"></i>
+                    </div>
+                    <h3 class="fw-bold mb-3">Gửi yêu cầu thành công!</h3>
+                    <p class="text-muted mb-4">Đội ngũ admin TroHD đã nhận được thông tin và sẽ liên hệ lại với bạn trong thời gian sớm nhất.</p>
+                    <button type="button" class="btn btn-primary fw-bold rounded-pill px-5 py-2" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white py-5 mt-auto border-top">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 mb-4"><!--cột đầu tiên to nhất để đặt logo và lời giới thiệu-->
-                    <a class="navbar-brand fw-bold fs-3 text-primary mb-3 d-block" href="#"> <!--khung chứa logo, ép đứng riêng 1 dòng-->
+                <div class="col-md-4 mb-4">
+                    <a class="navbar-brand fw-bold fs-3 text-primary mb-3 d-block" href="#"> 
                         <img src="images/logo.png" alt="TroHD" height="35">
                     </a>
-                    <p class="text-muted">Hệ thống tìm kiếm phòng trọ số 1 tại khu vực Hà Đông dành cho sinh viên.</p><!--slogan giới thiệu về web màu xám nhẹ nhàng-->
+                    <p class="text-muted">Hệ thống tìm kiếm phòng trọ số 1 tại khu vực Hà Đông dành cho sinh viên.</p>
                 </div>
-
-                <div class="col-md-2 mb-4"><!--cột thứ 2 chứa các link thông tin-->
-                    <h5 class="fw-bold mb-3">Về TroHD</h5><!--tiêu đề cột, in đậm-->
-                    <ul class="list-unstyled text-muted"><!--tạo danh sách liệt kê-->
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Giới thiệu</a></li><!--dòng chứa link-->
+                <div class="col-md-2 mb-4">
+                    <h5 class="fw-bold mb-3">Về TroHD</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Giới thiệu</a></li>
                         <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Tin tức</a></li>
-                    </ul><!--kết thúc danh sách-->
-                </div><!--đóng cột thứ 2-->
-
-                <div class="col-md-3 mb-4"> <!--cột thứ 3 chiếm 3 phần chứa các link hỗ trợ, md là medium-->
-                    <h5 class="fw-bold mb-3">Hỗ trợ</h5><!--tiêu đề cột-->
-                    <ul class="list-unstyled text-muted"><!--danh sách các link đã sạch dấu chấm đầu dòng-->
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Hướng dẫn</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Quy định</a></li><!--các đường link hướng dẫn, quy định-->
                     </ul>
-                </div><!--đóng cột hỗ trợ-->
-
-                <div class="col-md-3"><!--cột cuối cùng chứa thông tin liên lạc-->
-                    <h5 class="fw-bold mb-3">Liên hệ</h5><!--Tiêu đề cột-->
-                    <p class="text-muted mb-1 fw-bold"><i class="fa-solid fa-phone me-2"></i>0366604516</p><!--dòng sdt đc in đậm-->
-                    <p class="text-muted"><i class="fa-solid fa-envelope me-2"></i>tranduc2911k5@gmail.com</p><!--email-->
-                </div><!--đóng cột liên hệ-->
-            </div><!--đóng hàng ngang chứa 4 cột-->
-            
-            <div class="text-center pt-4 border-top mt-4 text-muted small"><!--hộp chứa dòng bản quyền, căn chữ giữa-->
+                </div>
+                <div class="col-md-3 mb-4"> 
+                    <h5 class="fw-bold mb-3">Hỗ trợ</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Hướng dẫn</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Quy định</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="fw-bold mb-3">Liên hệ</h5>
+                    <p class="text-muted mb-1 fw-bold"><i class="fa-solid fa-phone me-2"></i>0366604516</p>
+                    <p class="text-muted"><i class="fa-solid fa-envelope me-2"></i>tranduc2911k5@gmail.com</p>
+                </div>
+            </div>
+            <div class="text-center pt-4 border-top mt-4 text-muted small">
                 © 2026 Developed by Tran Van Duc. All rights reserved.
-            </div><!--đóng hộp bản quyền-->
+            </div>
         </div>
-    </footer><!--kết thúc chân trang-->
+    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script><!--bộ não của giao diện, mượt-->
+    <button id="backToTop" class="back-to-top"><i class="fa-solid fa-chevron-up"></i></button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
-</body><!--đóng phần thân trang-->
+</body>
 </html>

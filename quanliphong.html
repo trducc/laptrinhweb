@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TroHD - Quản lý & Thống kê</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .notification-dropdown { width: 320px; max-height: 450px; overflow-y: auto; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15); padding: 0; }
+        .stat-card { transition: transform 0.2s; border-radius: 15px; border: none; }
+        .stat-card:hover { transform: translateY(-3px); }
+        #badge-thong-bao { font-size: 0.65rem; padding: 0.25em 0.45em; }
+        .chart-container { background: white; border-radius: 20px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .dark-mode .chart-container { background: #2b2d31; box-shadow: none; }
+        .dark-mode .chart-container h5 { color: #fff !important; }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <nav class="navbar navbar-expand bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo.png" alt="TroHD" height="40">
+            </a>
+            <div class="navbar-collapse">
+                <ul class="navbar-nav mx-auto fw-bold gap-3 align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="danhsach.html">Danh sách phòng</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="chuyenTrangDangTin(event)">Đăng tin</a></li>
+                    <li class="nav-item" id="nav-quan-ly-phong"><a class="nav-link active text-primary" href="quanliphong.html">Quản lý phòng</a></li>
+                    <li class="nav-item"><a class="nav-link" href="yeuthich.html">Yêu thích</a></li>
+                    <li class="nav-item"><a class="nav-link" href="hotro.html">Hỗ trợ</a></li>
+                </ul>
+                <div class="d-flex gap-3 align-items-center flex-nowrap">
+                    <div id="user-auth-zone" class="d-inline-flex gap-2 align-items-center text-nowrap"></div>
+                    
+                    <div class="dropdown">
+                        <button class="btn btn-light rounded-circle shadow-sm position-relative" id="dropdownNotification" data-bs-toggle="dropdown" aria-expanded="false" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fa-regular fa-bell text-dark"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-light d-none" id="badge-thong-bao">0</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end notification-dropdown rounded-4 border-0 mt-2">
+                            <li><h6 class="dropdown-header fw-bold text-dark fs-6 py-3 border-bottom">Thông báo</h6></li>
+                            <div id="noi-dung-thong-bao">
+                                <li class="text-center py-4 text-muted small">Đang tải thông báo...</li>
+                            </div>
+                        </ul>
+                    </div>
+
+                    <button class="btn btn-light rounded-circle shadow-sm" id="darkModeToggle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fa-solid fa-moon" id="themeIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5 flex-grow-1">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <a href="index.html" class="text-decoration-none small fw-bold text-primary mb-2 d-block"><i class="fa-solid fa-arrow-left me-1"></i> Quay lại trang chủ</a>
+                <h3 class="fw-bold mb-1">Bảng điều khiển chủ trọ</h3>
+                <p class="text-muted mb-0">Phân tích hiệu quả bài đăng và quản lý tin thuê phòng</p>
+            </div>
+            <a href="dangtin.html" class="btn btn-primary fw-bold px-4 rounded-pill shadow-sm">
+                <i class="fa-solid fa-plus me-2"></i>Đăng tin mới
+            </a>
+        </div>
+
+        <div class="row g-4 mb-4">
+            <div class="col-md-3">
+                <div class="card stat-card shadow-sm p-4">
+                    <h6 class="text-muted fw-bold mb-2 text-uppercase small">Tổng tin</h6>
+                    <h2 class="fw-bold mb-0" id="stat-tong">0</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card shadow-sm p-4 text-success">
+                    <h6 class="text-muted fw-bold mb-2 text-uppercase small">Tổng lượt xem</h6>
+                    <h2 class="fw-bold mb-0" id="stat-view">0</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card shadow-sm p-4 text-primary">
+                    <h6 class="text-muted fw-bold mb-2 text-uppercase small">Đang hiển thị</h6>
+                    <h2 class="fw-bold mb-0" id="stat-hien-thi">0</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card shadow-sm p-4 text-warning">
+                    <h6 class="text-muted fw-bold mb-2 text-uppercase small">Chờ duyệt</h6>
+                    <h2 class="fw-bold mb-0" id="stat-cho-duyet">0</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h5 class="fw-bold mb-4 text-dark"><i class="fa-solid fa-chart-line me-2 text-primary"></i>Biểu đồ lượt xem theo từng bài đăng</h5>
+            <div style="height: 300px;">
+                <canvas id="landlordChart"></canvas>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="px-4 py-3">Mã phòng</th>
+                                <th class="py-3" style="min-width: 250px;">Tiêu đề</th>
+                                <th class="py-3 text-center">Lượt xem</th>
+                                <th class="py-3">Ngày đăng</th>
+                                <th class="py-3">Trạng thái</th>
+                                <th class="px-4 py-3 text-end">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bang-quan-ly-phong">
+                            <tr><td colspan="6" class="text-center py-5"><div class="spinner-border text-primary" role="status"></div></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalXoaPhong" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-body text-center p-5">
+                    <i class="fa-solid fa-trash-can text-danger mb-4" style="font-size: 4rem;"></i>
+                    <h4 class="fw-bold mb-3">Xác nhận xóa</h4>
+                    <p class="text-muted mb-4">Bạn chắc chắn muốn xóa bài đăng này chứ?</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <button type="button" class="btn btn-light fw-bold px-4 rounded-pill" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-danger fw-bold px-4 rounded-pill" id="btnXacNhanXoa">Xóa ngay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        const landlordId = localStorage.getItem('maNguoiDung');
+        let selectedRoomId = null;
+        let myChart = null;
+
+        function updateChart(labels, views) {
+            const ctx = document.getElementById('landlordChart').getContext('2d');
+            const isDark = document.body.classList.contains('dark-mode');
+            
+            if (myChart) myChart.destroy();
+            myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Lượt xem',
+                        data: views,
+                        backgroundColor: isDark ? '#0d6efd' : 'rgba(13, 110, 253, 0.2)',
+                        borderColor: '#0d6efd',
+                        borderWidth: 2,
+                        borderRadius: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, ticks: { color: isDark ? '#aaa' : '#666' }, grid: { color: isDark ? '#444' : '#eee' } },
+                        x: { ticks: { color: isDark ? '#aaa' : '#666' }, grid: { display: false } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // --- HÀM MỚI: ĐẨY VIP ---
+        // --- HÀM MỚI: ĐẨY VIP CÓ THÔNG BÁO NỔI ---
+        function promotePhong(id) {
+            // Thay vì confirm xấu xí, nếu cậu muốn dùng thông báo nổi luôn thì xài fetch thẳng:
+            fetch(`http://127.0.0.1:9090/api/promote/${id}`, { method: 'PUT' })
+            .then(res => {
+                // Dùng hàm thông báo nổi xịn xò có sẵn của hệ thống
+                hienThiThongBao("Thành công!", "Phòng của bạn đã được đẩy lên top VIP rực rỡ!", "thanhcong");
+                
+                // Đợi 1.5 giây cho thông báo bay lên biểu diễn, rồi mới load lại dữ liệu
+                setTimeout(() => {
+                    fetchLandlordData(); 
+                }, 1500);
+            })
+            .catch(err => {
+                console.error(err);
+                hienThiThongBao("Lỗi", "Không thể đẩy VIP lúc này.", "loi");
+            });
+        }
+
+        function fetchLandlordData() {
+            fetch(`http://127.0.0.1:9090/api/phong-tro/chu-tro/${landlordId}`)
+            .then(res => res.json())
+            .then(data => {
+                let html = '';
+                let totalViews = 0, active = 0, pending = 0;
+                let labels = [], viewsData = [];
+
+                data.forEach(p => {
+                    let status = (p.trangThai || '').toUpperCase();
+                    let label = '';
+                    let badge = '';
+                    let btnVip = '';
+
+                    // 1. NẾU PHÒNG ĐÃ CÓ DẤU VIP (isVip = 1)
+                    if (p.isVip === 1) {
+                        if (status === 'DA_DUYET') {
+                            // TRƯỜNG HỢP A: ĐÃ DUYỆT VIP XONG (Hiện chữ VIP luôn)
+                            active++;
+                            label = '<i class="fa-solid fa-crown text-warning"></i> Đã duyệt (VIP)'; 
+                            badge = 'bg-success';
+                            btnVip = `<button disabled class="btn btn-sm btn-success fw-bold rounded-pill px-3 me-1 border-0 shadow-sm"><i class="fa-solid fa-check-double"></i> Đã lên VIP</button>`;
+                        } else {
+                            // TRƯỜNG HỢP B: VỪA BẤM ĐẨY VIP (Đang đợi Admin duyệt lại)
+                            pending++;
+                            label = '<i class="fa-solid fa-hourglass-half text-danger"></i> Chờ duyệt VIP'; 
+                            badge = 'bg-warning text-dark border border-danger';
+                            btnVip = `<button disabled class="btn btn-sm btn-outline-warning fw-bold rounded-pill px-3 me-1"><i class="fa-solid fa-spinner fa-spin"></i> Đang yêu cầu VIP</button>`;
+                        }
+                    } 
+                    // 2. NẾU PHÒNG CHƯA CÓ DẤU VIP (isVip = 0)
+                    else {
+                        if (status === 'DA_DUYET') {
+                            // TRƯỜNG HỢP C: PHÒNG THƯỜNG ĐÃ DUYỆT (Cho phép bấm Đẩy VIP)
+                            active++;
+                            label = 'Đã duyệt'; 
+                            badge = 'bg-success';
+                            btnVip = `<button onclick="promotePhong(${p.maPhong})" class="btn btn-sm btn-warning fw-bold rounded-pill px-3 me-1 text-dark shadow-sm"><i class="fa-solid fa-crown"></i> Đẩy VIP (Miễn phí)</button>`;
+                        } else {
+                            // TRƯỜNG HỢP D: PHÒNG MỚI ĐĂNG ĐANG ĐỢI DUYỆT LẦN ĐẦU (Khóa nút VIP)
+                            pending++;
+                            label = 'Chờ duyệt';
+                            badge = 'bg-warning text-dark';
+                            btnVip = `<button disabled class="btn btn-sm btn-light fw-bold rounded-pill px-3 me-1 text-muted border"><i class="fa-solid fa-lock"></i> Đẩy VIP</button>`;
+                        }
+                    }
+
+                    // ... các dòng cộng dồn totalViews và render HTML giữ nguyên ...
+                    totalViews += (p.luotXem || 0);
+                    labels.push(`#PT${p.maPhong}`);
+                    viewsData.push(p.luotXem || 0);
+
+                    let date = p.ngayDang ? new Date(p.ngayDang).toLocaleDateString('vi-VN') : 'N/A';
+
+                    html += `
+                        <tr>
+                            <td class="px-4 fw-bold text-muted">#PT${p.maPhong}</td>
+                            <td class="fw-bold text-primary text-truncate" style="max-width: 250px;">${p.tieuDe}</td>
+                            <td class="text-center fw-bold text-danger">${p.luotXem || 0}</td>
+                            <td class="text-muted small">${date}</td>
+                            <td><span class="badge ${badge} rounded-pill px-3 py-2 shadow-sm">${label}</span></td>
+                            <td class="px-4 text-end text-nowrap">
+                                ${btnVip}
+                                <button onclick="xemChiTiet(${p.maPhong})" class="btn btn-sm btn-outline-info fw-bold rounded-pill px-3 me-1"><i class="fa-solid fa-eye"></i> Xem</button>
+                                <button class="btn btn-sm btn-outline-danger fw-bold rounded-pill px-3" onclick="moModalXoa(${p.maPhong})"><i class="fa-solid fa-trash-can"></i> Xóa</button>
+                            </td>
+                        </tr>`;
+                });
+                document.getElementById('bang-quan-ly-phong').innerHTML = html;
+                document.getElementById('stat-tong').innerText = data.length;
+                document.getElementById('stat-view').innerText = totalViews;
+                document.getElementById('stat-hien-thi').innerText = active;
+                document.getElementById('stat-cho-duyet').innerText = pending;
+                updateChart(labels, viewsData);
+            });
+        }
+
+        function moModalXoa(id) {
+            selectedRoomId = id;
+            new bootstrap.Modal(document.getElementById('modalXoaPhong')).show();
+        }
+
+        document.getElementById('btnXacNhanXoa').onclick = () => {
+            fetch(`http://127.0.0.1:9090/api/xoa-phong/${selectedRoomId}`, { method: 'DELETE' })
+            .then(() => { bootstrap.Modal.getInstance(document.getElementById('modalXoaPhong')).hide(); fetchLandlordData(); });
+        };
+
+        document.addEventListener('DOMContentLoaded', fetchLandlordData);
+    </script>
+</body>
+</html>

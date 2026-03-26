@@ -1,191 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><!--phần não của web-->
+<head>
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-    <meta charset="UTF-8"><!--viết tiếng việt k lỗi-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--cấu hình giúp web hiển thị đẹp-->
-    <title>TroHD</title><!--tên web hiển thị trên trình duyệt-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"><!--liên kết bootstrap-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!--thư viện lấy icon-->
-    <link rel="stylesheet" href="css/style.css"><!--liên kết file css-->
-</head>                                                                                                                 
-<body><!--bắt đaauf phần thân, nơi người xem nhìn thấy-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TroHD - Đăng ký</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .notification-dropdown {
+            width: 320px;
+            max-height: 450px;
+            overflow-y: auto;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            padding: 0;
+        }
+        .notification-item:hover {
+            background-color: #f8f9fa;
+        }
+        #badge-thong-bao {
+            font-size: 0.65rem;
+            padding: 0.25em 0.45em;
+        }
+    </style>
+</head>                                                                                                 
+<body>
 
-    <nav class="navbar navbar-expand bg-white shadow-sm sticky-top"><!--menu trắng, dính chặt lên đỉnh màn hình-->
-        <div class="container"><!--khung ép nội dung vào giữa màn hình-->
-            <a class="navbar-brand" href="index.html"><!--khu vực chứa logo, cài link bấm vào tự động quay về trang chủ-->
-                <img src="images/logo.png" alt="TroHD" height="40"><!--chèn ảnh logo và ép chiều cao-->
-            </a><!--đóng nút logo-->
+    <nav class="navbar navbar-expand bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo.png" alt="TroHD" height="40">
+            </a>
             
-            <div class="navbar-collapse"><!--Gom toàn bộ menu và nút bấm thành 1 khối-->
-                <ul class="navbar-nav mx-auto fw-bold gap-3 align-items-center"><!--menu đẩy vào chính giữa, chữ đậm, thẳng hàng-->
-                    <li class="nav-item"><a class="nav-link " href="index.html">Trang chủ</a></li><!--mục trang chủ đang xem được tô màu xanh-->
-                    <li class="nav-item"><a class="nav-link " href="danhsach.html".html>Danh sách phòng</a></li><!--link bấm sang trang danhsachphong-->
-                    <li class="nav-item"><a class="nav-link" href="dangtin.html">Đăng tin</a></li><!--link bấm sang trang đăng bài cho chủ trọ-->
+            <div class="navbar-collapse">
+                <ul class="navbar-nav mx-auto fw-bold gap-3 align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="danhsach.html">Danh sách phòng</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="chuyenTrangDangTin(event)">Đăng tin</a></li>
                     <li class="nav-item"><a class="nav-link" href="yeuthich.html">Yêu thích</a></li>
+                    <li class="nav-item"><a class="nav-link" href="hotro.html">Hỗ trợ</a></li>
+                </ul>
+                <div class="d-flex gap-2 align-items-center">
+                    <a href="dangnhap.html" class="btn btn-outline-primary fw-bold px-4">Đăng nhập</a>
+                    <a href="dangky.html" class="btn btn-primary fw-bold px-4">Đăng ký</a>
                     
-                    <li class="nav-item"><a class="nav-link" href="hotro.html">Hỗ trợ</a></li><!--link bấm vào hỗ trợ-->
-                </ul><!--kết thúc danh sách menu-->
-                   <div class="d-flex gap-2 align-items-center">
-    <a href="dangnhap.html" class="btn btn-outline-primary fw-bold px-4">Đăng nhập</a>
-    <a href="dangky.html" class="btn btn-primary fw-bold px-4">Đăng ký</a>
-    <button class="btn btn-light rounded-circle shadow-sm ms-2" id="darkModeToggle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
-        <i class="fa-solid fa-moon" id="themeIcon"></i>
-    </button>
-</div>
-            </div><!--đóng các hộp-->
-        </div>
-    </nav><!--kết thúc toàn bộ thanh menu trên cùng-->
-    
-    <section class="py-5 min-vh-100 d-flex align-items-center">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-8">
-                <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
-                    <div class="card-body p-5">
-                        <div class="text-center mb-4">
-                            <h2 class="fw-bold text-primary">Tạo tài khoản mới</h2>
-                            <p class="text-muted">Gia nhập cộng đồng TroHD ngay hôm nay!</p>
-                        </div>
-                        <form>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Họ và tên</label>
-                                <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Nhập họ và tên của bạn">
+                    <div class="dropdown ms-2">
+                        <button class="btn btn-light rounded-circle shadow-sm position-relative" 
+                                id="dropdownNotification" data-bs-toggle="dropdown" aria-expanded="false" 
+                                style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;" title="Thông báo">
+                            <i class="fa-regular fa-bell text-dark"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none" id="badge-thong-bao">
+                                0
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end notification-dropdown rounded-4 border-0 mt-2">
+                            <li><h6 class="dropdown-header fw-bold text-dark fs-6 py-3 border-bottom">Thông báo</h6></li>
+                            <div id="noi-dung-thong-bao">
+                                <li class="text-center py-4 text-muted small">Đang tải thông báo...</li>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Email hoặc Số điện thoại</label>
-                                <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Nhập email hoặc SĐT">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Mật khẩu</label>
-                                <div class="input-group">
-                                    <input type="password" id="mk1" class="form-control form-control-lg bg-light fs-6 border-end-0" placeholder="Mật khẩu nên từ 8 kí tự trở lên">
-                                    <span class="input-group-text bg-light border-start-0" style="cursor: pointer;" onclick="togglePass('mk1', 'eye1')">
-                                        <i class="fa-solid fa-eye-slash text-muted" id="eye1"></i>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label fw-bold">Xác nhận mật khẩu</label>
-                                <div class="input-group">
-                                    <input type="password" id="mk2" class="form-control form-control-lg bg-light fs-6 border-end-0" placeholder="Nhập lại mật khẩu của bạn">
-                                    <span class="input-group-text bg-light border-start-0" style="cursor: pointer;" onclick="togglePass('mk2', 'eye2')">
-                                        <i class="fa-solid fa-eye-slash text-muted" id="eye2"></i>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="mb-4">
-    <label class="form-label fw-bold d-block">Bạn muốn tham gia TroHD với vai trò là:</label>
-    <div class="d-flex gap-4 mt-2">
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="roleAccount" id="roleSinhVien" checked>
-            <label class="form-check-label fw-medium text-dark" for="roleSinhVien">
-                <i class="fa-solid fa-user-graduate me-1 text-primary"></i> Sinh viên tìm trọ
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="roleAccount" id="roleChuTro">
-            <label class="form-check-label fw-medium text-dark" for="roleChuTro">
-                <i class="fa-solid fa-house-chimney-user me-1 text-success"></i> Chủ phòng trọ
-            </label>
-        </div>
-    </div>
-</div>
-                            
-                            <div class="form-check mb-4">
-                                <input class="form-check-input" type="checkbox" id="terms" checked>
-                                <label class="form-check-label text-muted small" for="terms">
-                                    Tôi đồng ý với các <a href="#" class="text-primary text-decoration-none fw-bold">Điều khoản & Chính sách</a> của TroHD.
-                                </label>
-                            </div>
+                            <li><hr class="dropdown-divider m-0"></li>
+                            <li><a class="dropdown-item text-center small text-primary fw-bold py-2" href="#">Xem tất cả</a></li>
+                        </ul>
+                    </div>
 
-                           <button type="button" class="btn btn-primary w-100 btn-lg fw-bold rounded-pill mb-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalDangKy">
-    Đăng ký tài khoản
-</button>
-
-<div class="modal fade" id="modalDangKy" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-4 border-0 shadow">
-            <div class="modal-body text-center p-5">
-                <div class="text-success mb-4">
-                    <i class="fa-solid fa-circle-check" style="font-size: 5rem;"></i>
+                    <button class="btn btn-light rounded-circle shadow-sm ms-2" id="darkModeToggle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fa-solid fa-moon" id="themeIcon"></i>
+                    </button>
                 </div>
-                <h3 class="fw-bold mb-3">Đăng ký thành công!</h3>
-                <p class="text-muted mb-4">Chào mừng bạn đã gia nhập cộng đồng TroHD. Hãy đăng nhập để bắt đầu trải nghiệm ngay nhé!</p>
-                <a href="dangnhap.html" class="btn btn-primary fw-bold rounded-pill px-5 py-2">Đi tới Đăng nhập</a>
             </div>
         </div>
-    </div>
-</div>
-                            
-                            <div class="text-center text-muted small">
-                                Đã có tài khoản? <a href="dangnhap.html" class="text-primary fw-bold text-decoration-none">Đăng nhập ngay</a>
+    </nav>
+    
+    <section class="py-5 min-vh-100 d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-8">
+                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                        <div class="card-body p-5">
+                            <div class="text-center mb-4">
+                                <h2 class="fw-bold text-primary">Tạo tài khoản mới</h2>
+                                <p class="text-muted">Gia nhập cộng đồng TroHD ngay hôm nay!</p>
                             </div>
-                        </form>
+                            
+                            <form id="formDangKy">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Tên đăng nhập <span class="text-danger">*</span></label>
+                                    <input type="text" id="reg-username" class="form-control form-control-lg bg-light fs-6" placeholder="Dùng để đăng nhập (VD: duc_tran29)">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Họ và tên <span class="text-danger">*</span></label>
+                                    <input type="text" id="reg-fullname" class="form-control form-control-lg bg-light fs-6" placeholder="Nhập họ và tên thật của bạn">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Số điện thoại <span class="text-danger">*</span></label>
+                                    <input type="tel" id="reg-phone" class="form-control form-control-lg bg-light fs-6" placeholder="Nhập số điện thoại liên lạc">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Mật khẩu <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="password" id="mk1" class="form-control form-control-lg bg-light fs-6 border-end-0" placeholder="Mật khẩu từ 6 kí tự trở lên">
+                                        <span class="input-group-text bg-light border-start-0" style="cursor: pointer;" onclick="togglePass('mk1', 'eye1')">
+                                            <i class="fa-solid fa-eye-slash text-muted" id="eye1"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">Xác nhận mật khẩu <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="password" id="mk2" class="form-control form-control-lg bg-light fs-6 border-end-0" placeholder="Nhập lại mật khẩu của bạn">
+                                        <span class="input-group-text bg-light border-start-0" style="cursor: pointer;" onclick="togglePass('mk2', 'eye2')">
+                                            <i class="fa-solid fa-eye-slash text-muted" id="eye2"></i>
+                                        </span>
+                                    </div>
+                                    <div id="pass-error" class="text-danger small mt-1 d-none">Mật khẩu xác nhận không khớp!</div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold d-block">Bạn muốn tham gia TroHD với vai trò là:</label>
+                                    <div class="d-flex gap-4 mt-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="roleAccount" id="roleSinhVien" value="SINH_VIEN" checked>
+                                            <label class="form-check-label fw-medium text-dark" for="roleSinhVien">
+                                                <i class="fa-solid fa-user-graduate me-1 text-primary"></i> Sinh viên
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="roleAccount" id="roleChuTro" value="CHU_TRO">
+                                            <label class="form-check-label fw-medium text-dark" for="roleChuTro">
+                                                <i class="fa-solid fa-house-chimney-user me-1 text-success"></i> Chủ trọ
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input" type="checkbox" id="terms" checked>
+                                    <label class="form-check-label text-muted small" for="terms">
+                                        Tôi đồng ý với các <a href="#" class="text-primary text-decoration-none fw-bold">Điều khoản & Chính sách</a> của TroHD.
+                                    </label>
+                                </div>
+
+                                <button type="button" id="btnDangKySubmit" class="btn btn-primary w-100 btn-lg fw-bold rounded-pill mb-4 shadow-sm" onclick="xuLyDangKy()">
+                                    Đăng ký tài khoản
+                                </button>
+
+                                <div class="text-center text-muted small">
+                                    Đã có tài khoản? <a href="dangnhap.html" class="text-primary fw-bold text-decoration-none">Đăng nhập ngay</a>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <div class="modal fade" id="modalDangKy" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-body text-center p-5">
+                    <div class="text-success mb-4">
+                        <i class="fa-solid fa-circle-check" style="font-size: 5rem;"></i>
+                    </div>
+                    <h3 class="fw-bold mb-3">Đăng ký thành công!</h3>
+                    <p class="text-muted mb-4">Chào mừng bạn đã gia nhập cộng đồng TroHD. Hãy đăng nhập để bắt đầu trải nghiệm ngay nhé!</p>
+                    <a href="dangnhap.html" class="btn btn-primary fw-bold rounded-pill px-5 py-2">Đi tới Đăng nhập</a>
+                </div>
+            </div>
+        </div>
     </div>
-</section>
 
-<script>
-    function togglePass(inputId, iconId) {
-        const input = document.getElementById(inputId);
-        const icon = document.getElementById(iconId);
-        if (input.type === "password") {
-            input.type = "text";
-            icon.classList.remove("fa-eye-slash");
-            icon.classList.add("fa-eye");
-        } else {
-            input.type = "password";
-            icon.classList.remove("fa-eye");
-            icon.classList.add("fa-eye-slash");
-        }
-    }
-</script>
-
-                
-    <footer class="bg-white py-5 mt-auto border-top"><!--tạo khung trang chân trắng, có viền mờ bên trên-->
+    <footer class="bg-white py-5 mt-auto border-top">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 mb-4"><!--cột đầu tiên to nhất để đặt logo và lời giới thiệu-->
-                    <a class="navbar-brand fw-bold fs-3 text-primary mb-3 d-block" href="#"> <!--khung chứa logo, ép đứng riêng 1 dòng-->
+                <div class="col-md-4 mb-4">
+                    <a class="navbar-brand fw-bold fs-3 text-primary mb-3 d-block" href="#"> 
                         <img src="images/logo.png" alt="TroHD" height="35">
                     </a>
-                    <p class="text-muted">Hệ thống tìm kiếm phòng trọ số 1 tại khu vực Hà Đông dành cho sinh viên.</p><!--slogan giới thiệu về web màu xám nhẹ nhàng-->
+                    <p class="text-muted">Hệ thống tìm kiếm phòng trọ số 1 tại khu vực Hà Đông dành cho sinh viên.</p>
                 </div>
 
-                <div class="col-md-2 mb-4"><!--cột thứ 2 chứa các link thông tin-->
-                    <h5 class="fw-bold mb-3">Về TroHD</h5><!--tiêu đề cột, in đậm-->
-                    <ul class="list-unstyled text-muted"><!--tạo danh sách liệt kê-->
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Giới thiệu</a></li><!--dòng chứa link-->
+                <div class="col-md-2 mb-4">
+                    <h5 class="fw-bold mb-3">Về TroHD</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Giới thiệu</a></li>
                         <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Tin tức</a></li>
-                    </ul><!--kết thúc danh sách-->
-                </div><!--đóng cột thứ 2-->
-
-                <div class="col-md-3 mb-4"> <!--cột thứ 3 chiếm 3 phần chứa các link hỗ trợ, md là medium-->
-                    <h5 class="fw-bold mb-3">Hỗ trợ</h5><!--tiêu đề cột-->
-                    <ul class="list-unstyled text-muted"><!--danh sách các link đã sạch dấu chấm đầu dòng-->
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Hướng dẫn</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Quy định</a></li><!--các đường link hướng dẫn, quy định-->
                     </ul>
-                </div><!--đóng cột hỗ trợ-->
+                </div>
 
-                <div class="col-md-3"><!--cột cuối cùng chứa thông tin liên lạc-->
-                    <h5 class="fw-bold mb-3">Liên hệ</h5><!--Tiêu đề cột-->
-                    <p class="text-muted mb-1 fw-bold"><i class="fa-solid fa-phone me-2"></i>0366604516</p><!--dòng sdt đc in đậm-->
-                    <p class="text-muted"><i class="fa-solid fa-envelope me-2"></i>tranduc2911k5@gmail.com</p><!--email-->
-                </div><!--đóng cột liên hệ-->
-            </div><!--đóng hàng ngang chứa 4 cột-->
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold mb-3">Hỗ trợ</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Hướng dẫn</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Quy định</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3">
+                    <h5 class="fw-bold mb-3">Liên hệ</h5>
+                    <p class="text-muted mb-1 fw-bold"><i class="fa-solid fa-phone me-2"></i>0366604516</p>
+                    <p class="text-muted"><i class="fa-solid fa-envelope me-2"></i>tranduc2911k5@gmail.com</p>
+                </div>
+            </div>
             
-            <div class="text-center pt-4 border-top mt-4 text-muted small"><!--hộp chứa dòng bản quyền, căn chữ giữa-->
+            <div class="text-center pt-4 border-top mt-4 text-muted small">
                 © 2026 Developed by Tran Van Duc. All rights reserved.
-            </div><!--đóng hộp bản quyền-->
+            </div>
         </div>
-    </footer><!--kết thúc chân trang-->
+    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script><!--bộ não của giao diện, mượt-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
-</body><!--đóng phần thân trang-->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof capNhatMenu === "function") capNhatMenu();
+            if (typeof taiThongBao === "function") taiThongBao();
+        });
+
+        function togglePass(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            }
+        }
+
+        function xuLyDangKy() {
+            const username = document.getElementById('reg-username').value.trim();
+            const fullname = document.getElementById('reg-fullname').value.trim();
+            const phone = document.getElementById('reg-phone').value.trim();
+            const pass1 = document.getElementById('mk1').value;
+            const pass2 = document.getElementById('mk2').value;
+            const terms = document.getElementById('terms').checked;
+            const errorMsg = document.getElementById('pass-error');
+            const vaiTro = document.querySelector('input[name="roleAccount"]:checked').value;
+            const btn = document.getElementById('btnDangKySubmit');
+
+            errorMsg.classList.add('d-none');
+
+            if (!username || !fullname || !phone || !pass1 || !pass2) {
+                hienThiThongBao("Cảnh báo", "Vui lòng điền đầy đủ thông tin vào các ô có dấu * nhé!", "canhbao");
+                return;
+            }
+
+            if (pass1 !== pass2) {
+                errorMsg.classList.remove('d-none');
+                return;
+            }
+
+            if (!terms) {
+                hienThiThongBao("Cảnh báo", "Vui lòng đánh dấu đồng ý với Điều khoản & Chính sách!", "canhbao");
+                return;
+            }
+
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Đang xử lý...';
+            btn.disabled = true;
+
+            const duLieuDangKy = {
+                tenDangNhap: username,
+                hoTen: fullname,
+                soDienThoai: phone,
+                matKhau: pass1,
+                quyenHan: vaiTro
+            };
+
+            fetch('http://localhost:9090/api/dang-ky', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(duLieuDangKy)
+            })
+            .then(response => response.text())
+            .then(ketQua => {
+                if (ketQua === "TRUNG_TEN") {
+                    hienThiThongBao("Lỗi", "Tên đăng nhập này đã có người sử dụng. Vui lòng chọn tên khác!", "loi");
+                } else if (ketQua === "THANH_CONG") {
+                    var modal = new bootstrap.Modal(document.getElementById('modalDangKy'));
+                    modal.show();
+                } else {
+                    hienThiThongBao("Lỗi", "Có lỗi xảy ra từ hệ thống, vui lòng thử lại sau!", "loi");
+                }
+            })
+            .catch(error => {
+                hienThiThongBao("Lỗi kết nối", "Không thể kết nối đến máy chủ Backend!", "loi");
+            })
+            .finally(() => {
+                btn.innerHTML = 'Đăng ký tài khoản';
+                btn.disabled = false;
+            });
+        }
+    </script>
+</body>
 </html>

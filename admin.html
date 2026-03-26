@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Quản lý TroHD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .hover-menu:hover {
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 1 !important;
+        }
+        .active-menu {
+            background: #0d6efd !important;
+            opacity: 1 !important;
+        }
+        .admin-sidebar {
+            width: 260px;
+            height: 100vh;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+        .admin-content {
+            margin-left: 260px;
+            padding: 2rem;
+        }
+        .filter-select {
+            min-width: 200px;
+            border-radius: 20px;
+            border: 2px solid #0d6efd;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-light admin-body">
+
+    <div class="admin-sidebar bg-dark text-white shadow">
+        <div class="p-4 border-bottom border-secondary text-center">
+            <h4 class="fw-bold mb-0 text-primary"><i class="fa-solid fa-user-shield me-2"></i>Admin Panel</h4>
+        </div>
+        <ul class="nav flex-column py-3 fw-medium flex-grow-1">
+            <li class="nav-item">
+                <a class="nav-link text-white active-menu py-3" href="admin.html">
+                    <i class="fa-solid fa-house-chimney me-3"></i>Quản lý tin đăng
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white opacity-75 hover-menu py-3 d-flex justify-content-between align-items-center" href="admin-hotro.html">
+                    <span><i class="fa-solid fa-headset me-3"></i>Quản lý hỗ trợ</span>
+                    <span class="badge bg-danger rounded-pill d-none" id="badge-hotro">0</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white opacity-75 hover-menu py-3" href="admin-nguoidung.html">
+                    <i class="fa-solid fa-users me-3"></i>Người dùng
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white opacity-75 hover-menu py-3" href="admin-thongke.html">
+                    <i class="fa-solid fa-chart-pie me-3"></i>Thống kê
+                </a>
+            </li>
+        </ul>
+        <div class="p-4 border-top border-secondary">
+            <a href="javascript:void(0)" class="btn btn-outline-danger w-100 fw-bold rounded-pill" onclick="xacNhanDangXuat()">
+                <i class="fa-solid fa-right-from-bracket me-2"></i>Đăng xuất
+            </a>
+        </div>
+    </div>
+
+    <div class="admin-content">
+        <nav class="navbar bg-white shadow-sm px-4 py-3 mb-4 rounded-3 d-flex justify-content-between align-items-center">
+            <h5 class="fw-bold mb-0">Hệ thống quản trị tin đăng</h5>
+            <div class="d-flex align-items-center gap-3">
+                <span class="fw-bold text-dark" id="tenAdmin">Xin chào, Admin!</span>
+                <img src="https://ui-avatars.com/api/?name=Admin&background=0D8ABC&color=fff" class="rounded-circle" width="40" alt="Avatar">
+            </div>
+        </nav>
+
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 bg-primary text-white p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1 opacity-75 small uppercase">Tổng tin đăng</h6>
+                            <h2 class="fw-bold mb-0" id="stat-tong">0</h2>
+                        </div>
+                        <i class="fa-solid fa-list-check fs-1 opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 bg-warning text-dark p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1 opacity-75 small uppercase">Đang chờ duyệt</h6>
+                            <h2 class="fw-bold mb-0" id="stat-cho">0</h2>
+                        </div>
+                        <i class="fa-solid fa-hourglass-half fs-1 opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 bg-success text-white p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1 opacity-75 small uppercase">Tổng lượt xem</h6>
+                            <h2 class="fw-bold mb-0" id="stat-view">0</h2>
+                        </div>
+                        <i class="fa-solid fa-eye fs-1 opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-4 shadow-sm border">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="fw-bold mb-0"><i class="fa-solid fa-filter me-2 text-primary"></i>Danh sách bài đăng</h5>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="fw-bold text-muted small">Lọc theo:</span>
+                    <select class="form-select filter-select shadow-sm" id="filterStatus" onchange="taiDanhSachTinDang()">
+    <option value="TAT_CA">-- Tất cả bài đăng --</option>
+    <option value="DA_DUYET_VIP">👑 Đã duyệt (VIP)</option>
+    <option value="CHO_DUYET_VIP">⭐ Chờ duyệt VIP</option>
+    <option value="DA_DUYET">✅ Đã duyệt</option>
+    <option value="CHO_DUYET">⏳ Chờ duyệt</option>
+</select>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" style="width: 100px;">Mã tin</th>
+                            <th scope="col">Tiêu đề phòng</th>
+                            <th scope="col">Giá tiền</th>
+                            <th scope="col">Trạng thái</th>
+                            <th scope="col" class="text-center">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bang-tin-dang"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalXacNhan" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-body text-center p-5">
+                    <div class="text-warning mb-4"><i class="fa-solid fa-circle-exclamation" style="font-size: 5rem;"></i></div>
+                    <h4 class="fw-bold mb-3" id="tieuDeXacNhan">Xác nhận</h4>
+                    <p class="text-muted mb-4" id="noiDungXacNhan"></p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <button type="button" class="btn btn-light fw-bold px-4 rounded-pill" data-bs-dismiss="modal">Hủy bỏ</button>
+                        <button type="button" class="btn btn-primary fw-bold px-4 rounded-pill" id="btnDongYXacNhan">Đồng ý</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Bảo mật: Ép đăng nhập quyền Admin
+        if(localStorage.getItem('vaiTro') !== 'QUAN_TRI') window.location.href = 'dangnhap.html';
+        document.getElementById('tenAdmin').innerText = 'Xin chào, ' + (localStorage.getItem('taiKhoan') || 'Admin') + '!';
+
+        let hanhDongHienTai = ''; 
+        let phongDangChon = null;
+function taiDanhSachTinDang() {
+            const statusFilter = document.getElementById('filterStatus').value;
+            const container = document.getElementById('bang-tin-dang');
+            if (!container) return;
+
+            // Gọi API lấy toàn bộ, lọc ở Frontend để tốc độ nhanh và chính xác nhất
+            fetch(`http://127.0.0.1:9090/api/danh-sach-phong-tro?trangThai=TAT_CA`)
+            .then(res => res.json())
+            .then(data => {
+                let filteredData = data;
+
+                // --- LOGIC LỌC TỔNG HỢP ---
+                if (statusFilter === 'DA_DUYET_VIP') {
+                    filteredData = data.filter(p => (p.trangThai || '').toUpperCase() === 'DA_DUYET' && p.isVip === 1);
+                } 
+                else if (statusFilter === 'CHO_DUYET_VIP') {
+                    filteredData = data.filter(p => p.isVip === 1 && (p.trangThai || '').toUpperCase() !== 'DA_DUYET');
+                } 
+                else if (statusFilter === 'DA_DUYET') {
+                    filteredData = data.filter(p => (p.trangThai || '').toUpperCase() === 'DA_DUYET' && (p.isVip === 0 || p.isVip === null));
+                } 
+                else if (statusFilter === 'CHO_DUYET') {
+                    filteredData = data.filter(p => (p.trangThai || '').toUpperCase() === 'CHO_DUYET' && (p.isVip === 0 || p.isVip === null));
+                }
+
+                // Luôn đẩy các bài xin VIP lên đầu khi xem "Tất cả"
+                if (statusFilter === 'TAT_CA') {
+                    filteredData.sort((a, b) => (b.isVip || 0) - (a.isVip || 0));
+                }
+
+                let html = '';
+                filteredData.forEach(p => {
+                    let statusStr = (p.trangThai || '').toUpperCase();
+                    let isDuyet = statusStr === 'DA_DUYET';
+                    let isVip = p.isVip === 1;
+                    let badgeClass = '';
+                    let badgeText = '';
+
+                    // Xác định nhãn hiển thị
+                    if (isVip && !isDuyet) {
+                        badgeClass = 'bg-danger text-white border border-warning shadow-sm';
+                        badgeText = '<i class="fa-solid fa-star-half-stroke me-1"></i> Chờ duyệt VIP';
+                    } else if (isVip && isDuyet) {
+                        badgeClass = 'bg-success';
+                        badgeText = '<i class="fa-solid fa-crown text-warning me-1"></i> Đã duyệt (VIP)';
+                    } else if (!isVip && !isDuyet) {
+                        badgeClass = 'bg-warning text-dark';
+                        badgeText = 'Chờ duyệt';
+                    } else {
+                        badgeClass = 'bg-success';
+                        badgeText = 'Đã duyệt';
+                    }
+
+                    html += `
+                    <tr class="${isVip && !isDuyet ? 'table-warning' : ''}">
+                        <td class="fw-bold text-muted">#PT${p.maPhong}</td> 
+                        <td class="fw-medium text-truncate" style="max-width: 300px;">
+                            ${isVip && !isDuyet ? '<span class="text-danger small fw-bold">[YÊU CẦU VIP]</span> ' : ''}${p.tieuDe}
+                        </td>
+                        <td class="text-danger fw-bold">${(p.giaTien || 0).toLocaleString()}đ</td>
+                        <td><span class="badge ${badgeClass} px-3 py-2 rounded-pill shadow-sm">${badgeText}</span></td>
+                        <td class="text-center">
+                            ${(!isDuyet || (isVip && statusStr !== 'DA_DUYET')) ? 
+                                `<button class="btn btn-sm btn-success fw-bold me-1 rounded-pill px-3 shadow-sm" onclick="moModal('DUYET', ${p.maPhong})">Duyệt ngay</button>` : ''}
+                            <a href="chitiet.html?id=${p.maPhong}" class="btn btn-sm btn-info text-white me-1 rounded-circle shadow-sm" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;"><i class="fa-solid fa-eye"></i></a>
+                            <button class="btn btn-sm btn-outline-danger rounded-circle shadow-sm" style="width: 32px; height: 32px;" onclick="moModal('XOA', ${p.maPhong})"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>`;
+                });
+                container.innerHTML = html || '<tr><td colspan="5" class="text-center py-5 fw-bold text-muted">Không tìm thấy bài đăng nào phù hợp.</td></tr>';
+                taiThongKeChuan();
+            })
+            .catch(() => {
+                container.innerHTML = '<tr><td colspan="5" class="text-center text-danger py-5">Lỗi kết nối máy chủ 9090!</td></tr>';
+            });
+        }
+
+        function taiThongKeChuan() {
+            fetch('http://127.0.0.1:9090/api/thong-ke')
+            .then(res => res.json())
+            .then(stats => {
+                document.getElementById('stat-tong').innerText = stats.tongPhong || 0;
+                document.getElementById('stat-cho').innerText = stats.choDuyet || 0;
+                document.getElementById('stat-view').innerText = (stats.tongView || 0).toLocaleString();
+            });
+        }
+
+        function capNhatBadgeHoTro() {
+            const badge = document.getElementById('badge-hotro');
+            if (!badge) return;
+            fetch('http://127.0.0.1:9090/api/danh-sach-ho-tro')
+                .then(res => res.json())
+                .then(data => {
+                    // FIX: Lọc theo trạng thái 0 (Chưa xử lý) để đồng bộ Backend
+                    const soTinMoi = data.filter(h => h.trangThai === 0).length;
+                    if (soTinMoi > 0) {
+                        badge.innerText = soTinMoi;
+                        badge.classList.remove('d-none');
+                    } else {
+                        badge.classList.add('d-none');
+                    }
+                })
+                .catch(() => badge.classList.add('d-none'));
+        }
+
+        function moModal(type, id) {
+            hanhDongHienTai = type;
+            phongDangChon = id;
+            const btn = document.getElementById('btnDongYXacNhan');
+            if(type === 'DUYET') {
+                document.getElementById('tieuDeXacNhan').innerText = 'Duyệt tin đăng';
+                document.getElementById('noiDungXacNhan').innerText = `Phê duyệt cho bài đăng #PT${id}?`;
+                btn.className = 'btn btn-success fw-bold px-4 rounded-pill';
+            } else {
+                document.getElementById('tieuDeXacNhan').innerText = 'Xóa tin đăng';
+                document.getElementById('noiDungXacNhan').innerText = `Xác nhận xóa vĩnh viễn #PT${id}?`;
+                btn.className = 'btn btn-danger fw-bold px-4 rounded-pill';
+            }
+            new bootstrap.Modal(document.getElementById('modalXacNhan')).show();
+        }
+
+        document.getElementById('btnDongYXacNhan').addEventListener('click', function() {
+            let modal = bootstrap.Modal.getInstance(document.getElementById('modalXacNhan'));
+            modal.hide();
+            
+            const endpoint = hanhDongHienTai === 'DUYET' ? 'duyet-phong' : 'xoa-phong';
+            const method = hanhDongHienTai === 'DUYET' ? 'PUT' : 'DELETE';
+            // FIX: Thêm mã Admin để vượt qua lớp bảo mật Backend
+            const maAdmin = localStorage.getItem('maNguoiDung');
+
+            fetch(`http://127.0.0.1:9090/api/${endpoint}/${phongDangChon}?maAdmin=${maAdmin}`, { 
+                method: method 
+            })
+            .then(res => {
+                if(res.ok) {
+                    if(typeof hienThiThongBao === 'function') hienThiThongBao("Thành công", "Thao tác hoàn tất!", "thanhcong");
+                    taiDanhSachTinDang();
+                } else {
+                    if(typeof hienThiThongBao === 'function') hienThiThongBao("Thất bại", "Bạn không có quyền thực hiện thao tác này!", "loi");
+                }
+            })
+            .catch(() => {
+                if(typeof hienThiThongBao === 'function') hienThiThongBao("Lỗi", "Không thể kết nối máy chủ!", "loi");
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            taiDanhSachTinDang();
+            capNhatBadgeHoTro();
+            // Tự động cập nhật badge mỗi 30 giây
+            setInterval(capNhatBadgeHoTro, 30000);
+        });
+    </script>
+</body>
+</html>
